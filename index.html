@@ -27,6 +27,7 @@
             --badge-txt: #f0f0f0; --badge-txt-text: #666;
             --badge-bat: #e0f0e8; --badge-bat-text: #2d6e4a;
             --badge-pptx: #fde8d0; --badge-pptx-text: #b5651a;
+            --badge-link: #e8f4fd; --badge-link-text: #1a6eb5;
             --section-header-bg: #f8fafc;
             --section-header-text: #555;
             --shadow: 0 4px 24px rgba(0,0,0,0.08);
@@ -149,14 +150,14 @@
         }
         .tab-nav::-webkit-scrollbar { height: 0; }
         .tab-btn {
-            padding: 14px 22px; background: transparent; border: none;
-            color: var(--header-subtext); font-size: 14.5px; font-weight: 500;
+            padding: 14px 20px; background: transparent; border: none;
+            color: var(--header-subtext); font-size: 14px; font-weight: 500;
             cursor: pointer; border-bottom: 3px solid transparent;
             transition: all 0.2s ease; font-family: inherit; white-space: nowrap;
         }
         .tab-btn:hover { color: white; background: rgba(255,255,255,0.06); }
         .tab-btn.active { color: white; border-bottom-color: var(--tab-active-border); }
-        .tab-icon { margin-right: 6px; }
+        .tab-icon { margin-right: 5px; }
         .tab-badge {
             display: inline-block; background: rgba(255,255,255,0.2); color: white;
             font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 6px; font-weight: 600;
@@ -255,6 +256,7 @@
         .badge-txt { background: var(--badge-txt); color: var(--badge-txt-text); }
         .badge-bat { background: var(--badge-bat); color: var(--badge-bat-text); }
         .badge-pptx { background: var(--badge-pptx); color: var(--badge-pptx-text); }
+        .badge-link { background: var(--badge-link); color: var(--badge-link-text); }
         .inline-tags { display: flex; gap: 4px; flex-shrink: 0; }
         .inline-tag {
             font-size: 10px; padding: 2px 7px; border-radius: 3px;
@@ -304,8 +306,8 @@
         footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; }
 
         @media (max-width: 700px) {
-            .tab-nav { padding: 0 15px; }
-            .tab-btn { padding: 12px 14px; font-size: 13px; }
+            .tab-nav { padding: 0 10px; }
+            .tab-btn { padding: 12px 10px; font-size: 12px; }
             .tab-content { padding: 20px 15px 30px 15px; }
             .header { padding: 20px 15px 0 15px; }
             .header h1 { font-size: 20px; }
@@ -328,7 +330,7 @@
         <div class="header">
             <div>
                 <h1>&#x1F4C2; SEED IMPORTANTS</h1>
-                <p class="subtitle">Quick access to documents, notebooks &amp; resources</p>
+                <p class="subtitle">Quick access to documents, notebooks, links &amp; resources</p>
             </div>
             <div class="header-actions">
                 <button class="btn-header" onclick="toggleAnalytics()">&#x1F4CA; My Stats</button>
@@ -352,8 +354,9 @@
         </div>
 
         <div class="tab-nav" id="tabNav">
-            <button class="tab-btn active" data-tab="docs"><span class="tab-icon">&#x1F4C4;</span> Documents <span class="tab-badge" id="badge-docs">0</span></button>
+            <button class="tab-btn active" data-tab="docs"><span class="tab-icon">&#x1F4C4;</span> Docs <span class="tab-badge" id="badge-docs">0</span></button>
             <button class="tab-btn" data-tab="notebooks"><span class="tab-icon">&#x1F40D;</span> Notebooks <span class="tab-badge" id="badge-notebooks">0</span></button>
+            <button class="tab-btn" data-tab="links"><span class="tab-icon">&#x1F517;</span> Quick Links <span class="tab-badge" id="badge-links">0</span></button>
             <button class="tab-btn" data-tab="videos"><span class="tab-icon">&#x1F3AC;</span> Videos <span class="tab-badge">0</span></button>
         </div>
 
@@ -389,6 +392,22 @@
             <p class="no-results" id="noResults-notebooks">No notebooks match your search.</p>
         </div>
 
+        <div class="tab-content" id="tab-links">
+            <div class="analytics-panel" id="analyticsPanel-links">
+                <div class="analytics-title">&#x1F4CA; Your Most Clicked Links</div>
+                <ul class="analytics-list" id="analyticsList-links"></ul>
+            </div>
+            <div class="tag-filters" id="tagFilters-links"></div>
+            <div class="search-wrapper">
+                <span class="search-icon">&#x1F50D;</span>
+                <input type="text" class="search-box" id="searchInput-links" placeholder="Filter links by name..." onkeyup="filterTab('links')">
+                <span class="search-shortcut">Ctrl+K</span>
+            </div>
+            <p class="count" id="docCount-links"></p>
+            <div id="docSections-links"></div>
+            <p class="no-results" id="noResults-links">No links match your search.</p>
+        </div>
+
         <div class="tab-content" id="tab-videos">
             <div class="empty-state">
                 <span class="empty-icon">&#x1F3AC;</span>
@@ -401,12 +420,9 @@
 
     <div class="toast" id="toast"></div>
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#x2191;</button>
-    <footer>SEED IMPORTANTS &bull; All links open in SharePoint Online &bull; Preferences stored locally</footer>
+    <footer>SEED IMPORTANTS &bull; All links open in new tabs &bull; Preferences stored locally</footer>
 
     <script>
-    // ═══════════════════════════════════════════
-    // 📦 DATA — Updated list, archives removed
-    // ═══════════════════════════════════════════
     var DOCUMENTS = [
         // ── Foundry Pipelines — User Guides ──
         { name: "AutoGen.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/AutoGen.docx?web=1", type: "docx", tags: ["foundry"], date: "2025-01-15", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
@@ -464,16 +480,28 @@
         { name: "Ops_Runbook_Excel_Summary.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops_Runbook_Excel_Summary.xlsx?web=1", type: "xlsx", tags: ["ops"], date: "2024-07-30", section: "📁 General Inputs & Guides", tab: "docs" },
         { name: "Q & A Code naming convention.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Q%20%26%20A%20Code%20naming%20convention.docx?web=1", type: "docx", tags: ["ops"], date: "2024-09-05", section: "📁 General Inputs & Guides", tab: "docs" },
         { name: "Rosetta UI User Manual.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta%20UI%20User%20Manual.docx?web=1", type: "docx", tags: ["rosetta"], date: "2024-12-01", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Rosetta.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta.docx?web=1", type: "docx", tags: ["rosetta"], date: "2024-04-18", section: "📁 General Inputs & Guides", tab: "docs" }
+        { name: "Rosetta.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta.docx?web=1", type: "docx", tags: ["rosetta"], date: "2024-04-18", section: "📁 General Inputs & Guides", tab: "docs" },
+
+        // ── Quick Links (new tab) ──
+        { name: "Fabric Workspace", url: "https://app.fabric.microsoft.com/home?experience=power-bi", type: "link", tags: ["fabric","powerbi"], date: "2025-05-01", section: "📁 Fabric & Power BI", tab: "links" },
+        { name: "Enabler-PROD Workspace", url: "https://app.powerbi.com/groups/3ec837d5-83b7-445e-b251-5879baf1985b/mirroredwarehouses/01cbedb5-0098-46fc-a718-2bd367efab41?experience=fabric-developer&selectedNodePath=01cbedb5-0098-46fc-a718-2bd367efab41%2FQueries%2FMyQueries%2F8521&selectedNodeDisplayValue=SQL%20query%201", type: "link", tags: ["enabler","prod"], date: "2025-05-01", section: "📁 Fabric & Power BI", tab: "links" },
+        { name: "Enabler-UAT Workspace", url: "https://app.fabric.microsoft.com/groups/dc25e6bd-1f4c-4f5b-8959-9468ec0d151e/mirroredwarehouses/b52574f9-9ba8-49ef-bd51-5d1f35c41d96?experience=fabric-developer&selectedNodePath=b52574f9-9ba8-49ef-bd51-5d1f35c41d96%2FQueries%2FMyQueries%2Fdb53f3df-9f33-4e75-84ea-ccf1753fef3b&selectedNodeDisplayValue=SQL%20query%201", type: "link", tags: ["enabler","uat"], date: "2025-05-01", section: "📁 Fabric & Power BI", tab: "links" },
+
+        { name: "Rosetta Mapping Tool (PRD)", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["rosetta","prd"], date: "2025-05-01", section: "📁 Rosetta Tools", tab: "links" },
+        { name: "Rosetta Mapping Tool (UAT)", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["rosetta","uat"], date: "2025-05-01", section: "📁 Rosetta Tools", tab: "links" },
+
+        { name: "Landing for ALD Data (PRD)", url: "https://portal.azure.com/#home", type: "link", tags: ["azure","ald"], date: "2025-05-01", section: "📁 Other Tools", tab: "links" },
+        { name: "Gold Check", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["gold","check"], date: "2025-05-01", section: "📁 Other Tools", tab: "links" },
+        { name: "Studio", url: "https://insightsstudio.kantar.com/", type: "link", tags: ["studio","kantar"], date: "2025-05-01", section: "📁 Other Tools", tab: "links" }
     ];
 
     // ═══════════════════════════════════════════
     // 💾 LOCAL STORAGE
     // ═══════════════════════════════════════════
-    var STORAGE_FAVORITES = 'seed-favs-v2';
-    var STORAGE_RECENT = 'seed-recent-v2';
-    var STORAGE_CLICKS = 'seed-clicks-v2';
-    var STORAGE_THEME = 'seed-theme-v2';
+    var STORAGE_FAVORITES = 'seed-favs-v3';
+    var STORAGE_RECENT = 'seed-recent-v3';
+    var STORAGE_CLICKS = 'seed-clicks-v3';
+    var STORAGE_THEME = 'seed-theme-v3';
 
     var favorites = JSON.parse(localStorage.getItem(STORAGE_FAVORITES) || '{}');
     var recentViews = JSON.parse(localStorage.getItem(STORAGE_RECENT) || '[]');
@@ -486,12 +514,9 @@
         updateStats();
     }
 
-    // ═══════════════════════════════════════════
-    // 🔧 RENDERING
-    // ═══════════════════════════════════════════
-    var ICONS = { docx: '📝', xlsx: '📊', py: '🐍', ipynb: '📓', mrs: '⚙️', txt: '📃', bat: '💻', pptx: '📽️' };
-    var BADGE_CLASS = { docx: 'badge-docx', xlsx: 'badge-xlsx', py: 'badge-py', ipynb: 'badge-ipynb', mrs: 'badge-mrs', txt: 'badge-txt', bat: 'badge-bat', pptx: 'badge-pptx' };
-    var BADGE_LABEL = { docx: 'DOCX', xlsx: 'XLSX', py: 'PY', ipynb: 'IPYNB', mrs: 'MRS', txt: 'TXT', bat: 'BAT', pptx: 'PPTX' };
+    var ICONS = { docx: '📝', xlsx: '📊', py: '🐍', ipynb: '📓', mrs: '⚙️', txt: '📃', bat: '💻', pptx: '📽️', link: '🔗' };
+    var BADGE_CLASS = { docx: 'badge-docx', xlsx: 'badge-xlsx', py: 'badge-py', ipynb: 'badge-ipynb', mrs: 'badge-mrs', txt: 'badge-txt', bat: 'badge-bat', pptx: 'badge-pptx', link: 'badge-link' };
+    var BADGE_LABEL = { docx: 'DOCX', xlsx: 'XLSX', py: 'PY', ipynb: 'IPYNB', mrs: 'MRS', txt: 'TXT', bat: 'BAT', pptx: 'PPTX', link: 'LINK' };
     var NEW_THRESHOLD_DAYS = 60;
     var MAX_RECENT = 8;
 
@@ -514,31 +539,51 @@
     }
 
     function renderAll() {
-        var tabs = { docs: [], notebooks: [] };
+        var tabs = { docs: [], notebooks: [], links: [] };
         DOCUMENTS.forEach(function(item, i) { item._index = i; if (tabs[item.tab]) tabs[item.tab].push(item); });
 
-        var docsBySection = {}; var sectionOrder = [];
+        // Docs
+        var docsBySection = {}; var docsOrder = [];
         tabs.docs.forEach(function(item) {
             var sec = item.section || 'Other';
-            if (!docsBySection[sec]) { docsBySection[sec] = []; sectionOrder.push(sec); }
+            if (!docsBySection[sec]) { docsBySection[sec] = []; docsOrder.push(sec); }
             docsBySection[sec].push(item);
         });
         var docsHTML = '';
-        sectionOrder.forEach(function(sec) {
+        docsOrder.forEach(function(sec) {
             var id = 'docs-sec-' + sec.replace(/[^a-zA-Z0-9]/g,'');
             docsHTML += '<div class="section-header" onclick="toggleSection(this)" data-section="' + id + '"><span class="arrow">▼</span> ' + sec + '<span class="section-count">' + docsBySection[sec].length + ' items</span></div>';
             docsHTML += '<ul class="doc-list" id="' + id + '">' + docsBySection[sec].map(function(item) { return buildItemHTML(item, item._index); }).join('') + '</ul>';
         });
         document.getElementById('docSections-docs').innerHTML = docsHTML;
+
+        // Notebooks
         document.getElementById('docList-notebooks').innerHTML = tabs.notebooks.map(function(item) { return buildItemHTML(item, item._index); }).join('');
+
+        // Quick Links
+        var linksBySection = {}; var linksOrder = [];
+        tabs.links.forEach(function(item) {
+            var sec = item.section || 'Other';
+            if (!linksBySection[sec]) { linksBySection[sec] = []; linksOrder.push(sec); }
+            linksBySection[sec].push(item);
+        });
+        var linksHTML = '';
+        linksOrder.forEach(function(sec) {
+            var id = 'links-sec-' + sec.replace(/[^a-zA-Z0-9]/g,'');
+            linksHTML += '<div class="section-header" onclick="toggleSection(this)" data-section="' + id + '"><span class="arrow">▼</span> ' + sec + '<span class="section-count">' + linksBySection[sec].length + ' items</span></div>';
+            linksHTML += '<ul class="doc-list" id="' + id + '">' + linksBySection[sec].map(function(item) { return buildItemHTML(item, item._index); }).join('') + '</ul>';
+        });
+        document.getElementById('docSections-links').innerHTML = linksHTML;
 
         document.getElementById('badge-docs').textContent = tabs.docs.length;
         document.getElementById('badge-notebooks').textContent = tabs.notebooks.length;
+        document.getElementById('badge-links').textContent = tabs.links.length;
 
         buildTagFilters('docs', tabs.docs);
         buildTagFilters('notebooks', tabs.notebooks);
+        buildTagFilters('links', tabs.links);
         updateStats(); updateRecentBar();
-        filterTab('docs'); filterTab('notebooks');
+        filterTab('docs'); filterTab('notebooks'); filterTab('links');
     }
 
     function buildTagFilters(tab, items) {
@@ -550,12 +595,9 @@
         c.innerHTML = h;
     }
 
-    // ═══════════════════════
-    // 🔄 LOGIC
-    // ═══════════════════════
-    var activeTags = { docs: 'all', notebooks: 'all' };
-    var favMode = { docs: false, notebooks: false };
-    var analyticsVisible = { docs: false, notebooks: false };
+    var activeTags = { docs: 'all', notebooks: 'all', links: 'all' };
+    var favMode = { docs: false, notebooks: false, links: false };
+    var analyticsVisible = { docs: false, notebooks: false, links: false };
 
     function switchTab(t) {
         document.querySelectorAll('.tab-content,.tab-btn').forEach(function(el) { el.classList.remove('active'); });
@@ -587,7 +629,6 @@
         var tf = activeTags[tab]; var sf = favMode[tab];
         var tc = document.getElementById('tab-' + tab); if (!tc) return;
         var lists = tc.querySelectorAll('.doc-list');
-        var headers = tc.querySelectorAll('.section-header');
         var nr = document.getElementById('noResults-' + tab);
         var dc = document.getElementById('docCount-' + tab);
         var tv = 0, ti = 0;
@@ -610,7 +651,7 @@
                 else sh.classList.remove('hidden');
             }
         });
-        var label = tab === 'notebooks' ? 'notebook' : 'document';
+        var label = tab === 'notebooks' ? 'notebook' : (tab === 'links' ? 'link' : 'document');
         dc.textContent = 'Showing ' + tv + ' of ' + ti + ' ' + label + 's';
         nr.style.display = (tv === 0 && (f || tf !== 'all' || sf)) ? 'block' : 'none';
     }
