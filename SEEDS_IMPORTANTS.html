@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEED IMPORTANTS</title>
+    <style>
+        :root {
+            --bg: #f0f2f5;
+            --card-bg: #ffffff;
+            --text: #1a1a1a;
+            --text-secondary: #666;
+            --border: #f0f0f0;
+            --hover-bg: #f5f9ff;
+            --link: #0078d4;
+            --link-hover: #005a9e;
+            --header-bg-start: #1a3a5c;
+            --header-bg-end: #0f2440;
+            --header-text: #ffffff;
+            --header-subtext: #b0c4de;
+            --tab-active-border: #4da6ff;
+            --badge-docx: #e8f4fd; --badge-docx-text: #1a6eb5;
+            --badge-xlsx: #e8f8e8; --badge-xlsx-text: #2d7d2d;
+            --badge-py: #fdf0e0; --badge-py-text: #b55a1a;
+            --badge-ipynb: #fde8e0; --badge-ipynb-text: #c0501a;
+            --badge-mrs: #e8e0f8; --badge-mrs-text: #5a2d9e;
+            --badge-txt: #f0f0f0; --badge-txt-text: #666;
+            --badge-bat: #e0f0e8; --badge-bat-text: #2d6e4a;
+            --badge-pptx: #fde8d0; --badge-pptx-text: #b5651a;
+            --section-header-bg: #f8fafc;
+            --section-header-text: #555;
+            --shadow: 0 4px 24px rgba(0,0,0,0.08);
+            --btn-copy-bg: #e8f0f8;
+            --btn-copy-hover: #d0e0f0;
+            --toast-bg: #333;
+            --toast-text: #fff;
+            --star-color: #f0c040;
+            --star-empty: #ccc;
+            --tag-bg: #eef2f7;
+            --tag-text: #555;
+            --tag-active-bg: #0078d4;
+            --tag-active-text: #fff;
+            --stat-bg: #f8fafc;
+            --stat-border: #e8ecf0;
+            --new-badge: #ff6b6b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 0;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
+            padding: 24px 35px 0 35px;
+            color: var(--header-text);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .header h1 { font-size: 24px; margin-bottom: 4px; color: var(--header-text); }
+        .header .subtitle { color: var(--header-subtext); font-size: 13px; }
+        .header-actions { display: flex; gap: 8px; align-items: center; padding-top: 4px; flex-wrap: wrap; }
+        .btn-icon, .btn-header {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+        .btn-header:hover, .btn-icon:hover { background: rgba(255,255,255,0.22); }
+
+        .stats-bar {
+            display: flex;
+            gap: 10px;
+            padding: 16px 35px;
+            background: var(--stat-bg);
+            border-bottom: 1px solid var(--stat-border);
+            flex-wrap: wrap;
+            transition: background-color 0.3s;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            cursor: default;
+        }
+        .stat-icon { font-size: 18px; }
+        .stat-value { font-size: 18px; font-weight: 700; color: var(--link); }
+        .stat-label { color: var(--text-secondary); font-size: 11px; }
+
+        .recent-bar {
+            display: none;
+            gap: 8px;
+            padding: 10px 35px;
+            background: #fafbfc;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .recent-bar.visible { display: flex; }
+        .recent-label {
+            font-size: 11px; font-weight: 600; color: #999;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px; white-space: nowrap;
+        }
+        .recent-chip {
+            padding: 5px 12px; background: #fff; border: 1px solid #e0e0e0;
+            border-radius: 16px; font-size: 12px; cursor: pointer; white-space: nowrap;
+            transition: all 0.15s; color: var(--link); max-width: 200px;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+        .recent-chip:hover { background: #f0f6ff; border-color: #bcd; }
+        .recent-clear { font-size: 11px; color: #bbb; cursor: pointer; background: none; border: none; margin-left: 4px; }
+        .recent-clear:hover { color: #999; }
+
+        .tab-nav {
+            display: flex; gap: 0; padding: 0 35px;
+            background: linear-gradient(135deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+        }
+        .tab-nav::-webkit-scrollbar { height: 0; }
+        .tab-btn {
+            padding: 14px 22px; background: transparent; border: none;
+            color: var(--header-subtext); font-size: 14.5px; font-weight: 500;
+            cursor: pointer; border-bottom: 3px solid transparent;
+            transition: all 0.2s ease; font-family: inherit; white-space: nowrap;
+        }
+        .tab-btn:hover { color: white; background: rgba(255,255,255,0.06); }
+        .tab-btn.active { color: white; border-bottom-color: var(--tab-active-border); }
+        .tab-icon { margin-right: 6px; }
+        .tab-badge {
+            display: inline-block; background: rgba(255,255,255,0.2); color: white;
+            font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-left: 6px; font-weight: 600;
+        }
+        .tab-btn.active .tab-badge { background: rgba(255,255,255,0.35); }
+
+        .tab-content { display: none; padding: 20px 35px 40px 35px; animation: fadeIn 0.25s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        .tag-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
+        .tag-filters-label {
+            font-size: 12px; font-weight: 600; color: var(--text-secondary);
+            text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px;
+        }
+        .tag-chip {
+            padding: 6px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 500;
+            cursor: pointer; border: 1.5px solid #dde; background: var(--tag-bg);
+            color: var(--tag-text); transition: all 0.2s; user-select: none; white-space: nowrap;
+        }
+        .tag-chip:hover { border-color: #bcd; background: #e2e8f0; }
+        .tag-chip.active { background: var(--tag-active-bg); color: var(--tag-active-text); border-color: var(--tag-active-bg); }
+        .tag-chip .tag-count { font-size: 10px; opacity: 0.7; margin-left: 4px; }
+        .favorites-toggle {
+            margin-left: auto; padding: 6px 14px; border-radius: 20px; font-size: 12.5px;
+            font-weight: 500; cursor: pointer; border: 1.5px solid #f0c040;
+            background: #fffdf5; color: #b5901a; transition: all 0.2s; white-space: nowrap;
+        }
+        .favorites-toggle:hover { background: #fff8d0; }
+        .favorites-toggle.active { background: #f0c040; color: #5c3d00; border-color: #d4a820; }
+
+        .search-wrapper { position: relative; margin-bottom: 14px; }
+        .search-box {
+            width: 100%; padding: 12px 16px 12px 40px; font-size: 15px;
+            border: 2px solid #e0e0e0; border-radius: 8px; outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s; font-family: inherit;
+        }
+        .search-box:focus { border-color: var(--link); box-shadow: 0 0 0 3px rgba(0,120,212,0.1); }
+        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; font-size: 16px; pointer-events: none; }
+        .search-shortcut {
+            position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+            color: #bbb; font-size: 11px; background: #f5f5f5; padding: 3px 7px;
+            border-radius: 4px; pointer-events: none; border: 1px solid #e0e0e0;
+        }
+
+        .section-header {
+            display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+            margin: 16px 0 8px 0; background: var(--section-header-bg);
+            border-radius: 6px; font-size: 13px; font-weight: 600;
+            color: var(--section-header-text); cursor: pointer; user-select: none; transition: background 0.15s;
+        }
+        .section-header:hover { background: #eef2f7; }
+        .section-header .arrow { transition: transform 0.2s; font-size: 11px; }
+        .section-header.collapsed .arrow { transform: rotate(-90deg); }
+        .section-count { margin-left: auto; font-weight: 400; font-size: 12px; color: #999; }
+        .section-header.hidden { display: none; }
+
+        .doc-list { list-style: none; padding: 0; }
+        .doc-list li {
+            padding: 10px 14px; border-radius: 7px; transition: background 0.15s;
+            border-bottom: 1px solid var(--border); display: flex;
+            align-items: center; gap: 8px; flex-wrap: wrap;
+        }
+        .doc-list li:last-child { border-bottom: none; }
+        .doc-list li:hover { background: var(--hover-bg); }
+        .doc-list li.hidden { display: none !important; }
+        .doc-list li a {
+            text-decoration: none; color: var(--link); font-size: 14.5px;
+            display: flex; align-items: center; gap: 9px; flex: 1; min-width: 180px;
+        }
+        .doc-list li a:hover { text-decoration: underline; color: var(--link-hover); }
+        .doc-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
+
+        .btn-star, .btn-copy {
+            background: none; border: none; cursor: pointer; font-size: 15px;
+            padding: 4px 5px; line-height: 1; border-radius: 4px;
+            transition: all 0.15s; color: #bbb; flex-shrink: 0;
+        }
+        .btn-star { font-size: 16px; }
+        .btn-star:hover, .btn-copy:hover { background: #f0f0f0; color: #555; }
+        .btn-star.starred { color: var(--star-color); }
+
+        .doc-date { font-size: 11.5px; color: #aaa; flex-shrink: 0; width: 80px; text-align: right; white-space: nowrap; }
+        .doc-date.new { color: var(--new-badge); font-weight: 600; }
+
+        .badge {
+            display: inline-block; font-size: 10.5px; font-weight: 600;
+            padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0;
+        }
+        .badge-docx { background: var(--badge-docx); color: var(--badge-docx-text); }
+        .badge-xlsx { background: var(--badge-xlsx); color: var(--badge-xlsx-text); }
+        .badge-py { background: var(--badge-py); color: var(--badge-py-text); }
+        .badge-ipynb { background: var(--badge-ipynb); color: var(--badge-ipynb-text); }
+        .badge-mrs { background: var(--badge-mrs); color: var(--badge-mrs-text); }
+        .badge-txt { background: var(--badge-txt); color: var(--badge-txt-text); }
+        .badge-bat { background: var(--badge-bat); color: var(--badge-bat-text); }
+        .badge-pptx { background: var(--badge-pptx); color: var(--badge-pptx-text); }
+        .inline-tags { display: flex; gap: 4px; flex-shrink: 0; }
+        .inline-tag {
+            font-size: 10px; padding: 2px 7px; border-radius: 3px;
+            background: #f0f4f8; color: #777; white-space: nowrap;
+        }
+
+        .analytics-panel {
+            display: none; padding: 16px 20px; margin-bottom: 16px;
+            background: #fafbfc; border: 1px solid #eee; border-radius: 8px;
+        }
+        .analytics-panel.visible { display: block; }
+        .analytics-title { font-size: 13px; font-weight: 600; color: #555; margin-bottom: 10px; }
+        .analytics-list { list-style: none; padding: 0; }
+        .analytics-list li {
+            display: flex; align-items: center; gap: 8px; padding: 5px 0;
+            font-size: 13px; border-bottom: 1px solid #f0f0f0;
+        }
+        .analytics-list li:last-child { border-bottom: none; }
+        .analytics-count {
+            background: #e8f0f8; color: #0078d4; font-weight: 600;
+            padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-left: auto;
+        }
+
+        .toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: var(--toast-bg); color: var(--toast-text); padding: 10px 22px;
+            border-radius: 20px; font-size: 13px; z-index: 999; opacity: 0;
+            pointer-events: none; transition: opacity 0.3s;
+        }
+        .toast.show { opacity: 1; }
+
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px; background: var(--link);
+            color: white; border: none; width: 40px; height: 40px; border-radius: 50%;
+            font-size: 18px; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 99;
+        }
+        .back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .back-to-top:hover { background: var(--link-hover); }
+
+        .count { font-size: 13px; color: #999; margin-bottom: 10px; }
+        .no-results { text-align: center; color: #999; padding: 40px 20px; font-style: italic; display: none; }
+        .empty-state { text-align: center; padding: 60px 20px; color: #bbb; }
+        .empty-state .empty-icon { font-size: 48px; display: block; margin-bottom: 12px; }
+        .empty-state p { font-size: 15px; color: #999; }
+
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; }
+
+        @media (max-width: 700px) {
+            .tab-nav { padding: 0 15px; }
+            .tab-btn { padding: 12px 14px; font-size: 13px; }
+            .tab-content { padding: 20px 15px 30px 15px; }
+            .header { padding: 20px 15px 0 15px; }
+            .header h1 { font-size: 20px; }
+            .stats-bar { padding: 12px 15px; gap: 6px; }
+            .stat-item { padding: 7px 10px; font-size: 11px; }
+            .stat-value { font-size: 16px; }
+            .recent-bar { padding: 8px 15px; }
+            .search-shortcut { display: none; }
+            .badge { font-size: 9px; padding: 2px 6px; }
+            .doc-date { width: auto; font-size: 10px; }
+            .inline-tags { display: none; }
+            .tag-filters { gap: 4px; }
+            .tag-chip { padding: 4px 10px; font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="header">
+            <div>
+                <h1>&#x1F4C2; SEED IMPORTANTS</h1>
+                <p class="subtitle">Quick access to documents, notebooks &amp; resources</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-header" onclick="toggleAnalytics()">&#x1F4CA; My Stats</button>
+                <button class="btn-icon dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">&#x1F319;</button>
+            </div>
+        </div>
+
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-item"><span class="stat-icon">&#x1F4C4;</span><div><span class="stat-value" id="statTotal">0</span><div class="stat-label">Total Resources</div></div></div>
+            <div class="stat-item"><span class="stat-icon">&#x1F4DD;</span><div><span class="stat-value" id="statDocx">0</span><div class="stat-label">Word Docs</div></div></div>
+            <div class="stat-item"><span class="stat-icon">&#x1F4CA;</span><div><span class="stat-value" id="statXlsx">0</span><div class="stat-label">Excel</div></div></div>
+            <div class="stat-item"><span class="stat-icon">&#x1F40D;</span><div><span class="stat-value" id="statPyNb">0</span><div class="stat-label">Notebooks</div></div></div>
+            <div class="stat-item"><span class="stat-icon">&#x2B50;</span><div><span class="stat-value" id="statFavs">0</span><div class="stat-label">Favorites</div></div></div>
+            <div class="stat-item"><span class="stat-icon">&#x1F441;</span><div><span class="stat-value" id="statViews">0</span><div class="stat-label">Views (You)</div></div></div>
+        </div>
+
+        <div class="recent-bar" id="recentBar">
+            <span class="recent-label">&#x1F552; Recently Viewed:</span>
+            <span id="recentChips"></span>
+            <button class="recent-clear" onclick="clearRecent()" title="Clear history">&#x2715; clear</button>
+        </div>
+
+        <div class="tab-nav" id="tabNav">
+            <button class="tab-btn active" data-tab="docs"><span class="tab-icon">&#x1F4C4;</span> Documents <span class="tab-badge" id="badge-docs">0</span></button>
+            <button class="tab-btn" data-tab="notebooks"><span class="tab-icon">&#x1F40D;</span> Notebooks <span class="tab-badge" id="badge-notebooks">0</span></button>
+            <button class="tab-btn" data-tab="videos"><span class="tab-icon">&#x1F3AC;</span> Videos <span class="tab-badge">0</span></button>
+        </div>
+
+        <div class="tab-content active" id="tab-docs">
+            <div class="analytics-panel" id="analyticsPanel-docs">
+                <div class="analytics-title">&#x1F4CA; Your Most Clicked Documents</div>
+                <ul class="analytics-list" id="analyticsList-docs"></ul>
+            </div>
+            <div class="tag-filters" id="tagFilters-docs"></div>
+            <div class="search-wrapper">
+                <span class="search-icon">&#x1F50D;</span>
+                <input type="text" class="search-box" id="searchInput-docs" placeholder="Filter documents by name..." onkeyup="filterTab('docs')">
+                <span class="search-shortcut">Ctrl+K</span>
+            </div>
+            <p class="count" id="docCount-docs"></p>
+            <div id="docSections-docs"></div>
+            <p class="no-results" id="noResults-docs">No documents match your search.</p>
+        </div>
+
+        <div class="tab-content" id="tab-notebooks">
+            <div class="analytics-panel" id="analyticsPanel-notebooks">
+                <div class="analytics-title">&#x1F4CA; Your Most Clicked Notebooks</div>
+                <ul class="analytics-list" id="analyticsList-notebooks"></ul>
+            </div>
+            <div class="tag-filters" id="tagFilters-notebooks"></div>
+            <div class="search-wrapper">
+                <span class="search-icon">&#x1F50D;</span>
+                <input type="text" class="search-box" id="searchInput-notebooks" placeholder="Filter notebooks by name..." onkeyup="filterTab('notebooks')">
+                <span class="search-shortcut">Ctrl+K</span>
+            </div>
+            <p class="count" id="docCount-notebooks"></p>
+            <ul class="doc-list" id="docList-notebooks"></ul>
+            <p class="no-results" id="noResults-notebooks">No notebooks match your search.</p>
+        </div>
+
+        <div class="tab-content" id="tab-videos">
+            <div class="empty-state">
+                <span class="empty-icon">&#x1F3AC;</span>
+                <p>No videos added yet.</p>
+                <p style="font-size:13px; margin-top:6px;">Important video links will appear here.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#x2191;</button>
+    <footer>SEED IMPORTANTS &bull; All links open in SharePoint Online &bull; Preferences stored locally</footer>
+
+    <script>
+    // ═══════════════════════════════════════════
+    // 📦 DATA — Updated list, archives removed
+    // ═══════════════════════════════════════════
+    var DOCUMENTS = [
+        // ── Foundry Pipelines — User Guides ──
+        { name: "AutoGen.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/AutoGen.docx?web=1", type: "docx", tags: ["foundry"], date: "2025-01-15", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Bronze Data checks.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Bronze%20Data%20checks.ipynb?web=1", type: "ipynb", tags: ["foundry","bronze"], date: "2025-03-01", section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
+        { name: "Checking Notebook.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checking%20Notebook.docx?web=1", type: "docx", tags: ["foundry"], date: "2024-10-05", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Checking.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checking.ipynb?web=1", type: "ipynb", tags: ["foundry"], date: "2025-02-10", section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
+        { name: "Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checklist.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], date: "2024-11-20", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Data_collection_Bronze_Pusher_Parser_Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Data_collection_Bronze_Pusher_Parser_Checklist.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], date: "2025-02-10", section: "📁 Foundry Pipelines — User Guides", tab: "docs", suffix: "(User Guides)" },
+        { name: "Fabric checking.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Fabric%20checking.docx?web=1", type: "docx", tags: ["foundry","fabric"], date: "2025-03-01", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Foundry Pipeline Documents List.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Foundry%20Pipeline%20Documents%20List.docx?web=1", type: "docx", tags: ["foundry"], date: "2024-08-22", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Gold_Check.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Gold_Check.ipynb?web=1", type: "ipynb", tags: ["foundry","gold"], date: "2025-02-20", section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
+        { name: "Inputs and CRDOM files validation.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Inputs%20and%20CRDOM%20files%20validation.xlsx?web=1", type: "xlsx", tags: ["foundry"], date: "2024-12-05", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "MetricRunner.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/MetricRunner.docx?web=1", type: "docx", tags: ["foundry"], date: "2024-09-30", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Optimus.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus.docx?web=1", type: "docx", tags: ["foundry"], date: "2025-01-28", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Optimus_MetricRunner_old.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus_MetricRunner_old.docx?web=1", type: "docx", tags: ["foundry"], date: "2024-11-08", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Optimus_MetricRunner_Quality_Checklist_Draft 1.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus_MetricRunner_Quality_Checklist_Draft%201.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], date: "2025-02-20", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Rosetta UI & Foundry Pipelines – Seed Team.pptx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20%26%20Foundry%20Pipelines%20%E2%80%93%20Seed%20Team.pptx?web=1", type: "pptx", tags: ["foundry","rosetta"], date: "2025-02-05", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Rosetta UI User Manual - Changes Needed.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20User%20Manual%20-%20Changes%20Needed.docx?web=1", type: "docx", tags: ["foundry","rosetta"], date: "2025-02-05", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Rosetta UI User Manual.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20User%20Manual.docx?web=1", type: "docx", tags: ["foundry","rosetta"], date: "2024-12-15", section: "📁 Foundry Pipelines — User Guides", tab: "docs", suffix: "(User Guides)" },
+
+        // ── Compare MDD ──
+        { name: "CompareMDD_v1.0 1.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Compare%20MDD/CompareMDD_v1.0%201.mrs?web=1", type: "mrs", tags: ["mdd"], date: "2025-01-10", section: "📁 Compare MDD", tab: "docs" },
+
+        // ── Azure Setup ──
+        { name: "CreateAzureStructure.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/CreateAzureStructure.txt?web=1", type: "txt", tags: ["azure"], date: "2024-11-01", section: "📁 Azure Setup", tab: "docs" },
+
+        // ── Dashboard Templates ──
+        { name: "HBG_CreateDashboardVariableList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_CreateDashboardVariableList.mrs?web=1", type: "mrs", tags: ["dashboard"], date: "2025-02-01", section: "📁 Dashboard Templates", tab: "docs" },
+        { name: "HBG_PowerBIData.bat", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData.bat?web=1", type: "bat", tags: ["dashboard","powerbi"], date: "2025-01-20", section: "📁 Dashboard Templates", tab: "docs" },
+        { name: "HBG_PowerBIData.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData.mrs?web=1", type: "mrs", tags: ["dashboard","powerbi"], date: "2025-01-20", section: "📁 Dashboard Templates", tab: "docs" },
+        { name: "HBG_PowerBIData_BATCH.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData_BATCH.txt?web=1", type: "txt", tags: ["dashboard","powerbi"], date: "2025-01-20", section: "📁 Dashboard Templates", tab: "docs" },
+
+        // ── Dups Finder ──
+        { name: "Extract variable details.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Extract%20variable%20details.mrs?web=1", type: "mrs", tags: ["dups"], date: "2025-02-15", section: "📁 Dups Finder", tab: "docs" },
+        { name: "HBG_CreateQuestionList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/HBG_CreateQuestionList.mrs?web=1", type: "mrs", tags: ["dups"], date: "2025-01-25", section: "📁 Dups Finder", tab: "docs" },
+        { name: "Q_DUPS_FINDER.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Q_DUPS_FINDER.txt?web=1", type: "txt", tags: ["dups"], date: "2024-12-01", section: "📁 Dups Finder", tab: "docs" },
+
+        // ── Existence Analyzer ──
+        { name: "Existence_Analyzer.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Existence_Analyzer/Existence_Analyzer.txt?web=1", type: "txt", tags: ["existence"], date: "2025-01-05", section: "📁 Existence Analyzer", tab: "docs" },
+
+        // ── General Inputs ──
+        { name: "CA_Mapping_Crib_Sheet_161025.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/CA_Mapping_Crib_Sheet_161025.xlsx?web=1", type: "xlsx", tags: ["mapping"], date: "2024-10-25", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Data ingestion and Pipeline execution 3.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Data%20ingestion%20and%20Pipeline%20execution%203.docx?web=1", type: "docx", tags: ["ops"], date: "2025-03-05", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Data_collection_Bronze_Pusher_Parser_Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Data_collection_Bronze_Pusher_Parser_Checklist.xlsx?web=1", type: "xlsx", tags: ["checklist"], date: "2025-01-10", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Duplicate_checking_SQL.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Duplicate_checking_SQL.txt?web=1", type: "txt", tags: ["sql"], date: "2024-08-01", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Existence_Check 1.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Existence_Check%201.ipynb?web=1", type: "ipynb", tags: ["existence"], date: "2025-02-28", section: "📁 General Inputs & Guides", tab: "notebooks" },
+        { name: "Fabric_E2E_Process_&_Validation_Guide v1.0.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_E2E_Process_%26_Validation_Guide%20v1.0.docx?web=1", type: "docx", tags: ["fabric"], date: "2025-02-28", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Fabric_E2E_Process_&_Validation_Guide v1.1.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_E2E_Process_%26_Validation_Guide%20v1.1.docx?web=1", type: "docx", tags: ["fabric"], date: "2025-03-10", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Fabric_UploadTo_BlobStorage.py", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_UploadTo_BlobStorage/Fabric_UploadTo_BlobStorage.py?web=1", type: "py", tags: ["fabric"], date: "2025-03-08", section: "📁 General Inputs & Guides", tab: "notebooks" },
+        { name: "HBG_CreateDashboardVariableList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/HBG_CreateDashboardVariableList.mrs?web=1", type: "mrs", tags: ["dashboard"], date: "2024-12-01", section: "📁 General Inputs & Guides", tab: "docs", suffix: "(root)" },
+        { name: "Legacy DP Best Practices Guidelines v1.0.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Legacy%20DP%20Best%20Practices%20Guidelines%20v1.0.docx?web=1", type: "docx", tags: ["ops"], date: "2024-08-15", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Multi-cell mapping process and guidelines.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Multi-cell%20mapping%20process%20and%20guidelines.docx?web=1", type: "docx", tags: ["mapping","ops"], date: "2025-01-20", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Ops Runbook - Existence Check in Foundry Process.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops%20Runbook%20-%20Existence%20Check%20in%20Foundry%20Process.docx?web=1", type: "docx", tags: ["ops"], date: "2024-11-12", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Ops runbook 101.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops%20runbook%20101.docx?web=1", type: "docx", tags: ["ops"], date: "2024-06-25", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Ops_Runbook_Excel_Summary.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops_Runbook_Excel_Summary.xlsx?web=1", type: "xlsx", tags: ["ops"], date: "2024-07-30", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Q & A Code naming convention.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Q%20%26%20A%20Code%20naming%20convention.docx?web=1", type: "docx", tags: ["ops"], date: "2024-09-05", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Rosetta UI User Manual.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta%20UI%20User%20Manual.docx?web=1", type: "docx", tags: ["rosetta"], date: "2024-12-01", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Rosetta.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta.docx?web=1", type: "docx", tags: ["rosetta"], date: "2024-04-18", section: "📁 General Inputs & Guides", tab: "docs" }
+    ];
+
+    // ═══════════════════════════════════════════
+    // 💾 LOCAL STORAGE
+    // ═══════════════════════════════════════════
+    var STORAGE_FAVORITES = 'seed-favs-v2';
+    var STORAGE_RECENT = 'seed-recent-v2';
+    var STORAGE_CLICKS = 'seed-clicks-v2';
+    var STORAGE_THEME = 'seed-theme-v2';
+
+    var favorites = JSON.parse(localStorage.getItem(STORAGE_FAVORITES) || '{}');
+    var recentViews = JSON.parse(localStorage.getItem(STORAGE_RECENT) || '[]');
+    var clickCounts = JSON.parse(localStorage.getItem(STORAGE_CLICKS) || '{}');
+
+    function saveAll() {
+        localStorage.setItem(STORAGE_FAVORITES, JSON.stringify(favorites));
+        localStorage.setItem(STORAGE_RECENT, JSON.stringify(recentViews));
+        localStorage.setItem(STORAGE_CLICKS, JSON.stringify(clickCounts));
+        updateStats();
+    }
+
+    // ═══════════════════════════════════════════
+    // 🔧 RENDERING
+    // ═══════════════════════════════════════════
+    var ICONS = { docx: '📝', xlsx: '📊', py: '🐍', ipynb: '📓', mrs: '⚙️', txt: '📃', bat: '💻', pptx: '📽️' };
+    var BADGE_CLASS = { docx: 'badge-docx', xlsx: 'badge-xlsx', py: 'badge-py', ipynb: 'badge-ipynb', mrs: 'badge-mrs', txt: 'badge-txt', bat: 'badge-bat', pptx: 'badge-pptx' };
+    var BADGE_LABEL = { docx: 'DOCX', xlsx: 'XLSX', py: 'PY', ipynb: 'IPYNB', mrs: 'MRS', txt: 'TXT', bat: 'BAT', pptx: 'PPTX' };
+    var NEW_THRESHOLD_DAYS = 60;
+    var MAX_RECENT = 8;
+
+    function isNew(d) { return (new Date() - new Date(d)) / 86400000 <= NEW_THRESHOLD_DAYS; }
+    function formatDate(d) { var dt = new Date(d); return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dt.getMonth()] + ' ' + dt.getDate(); }
+
+    function buildItemHTML(item, index) {
+        var starKey = 'item-' + index;
+        var isStarred = !!favorites[starKey];
+        return '<li data-index="' + index + '" data-tags="' + item.tags.join(' ') + '" data-date="' + item.date + '">' +
+            '<button class="btn-star' + (isStarred ? ' starred' : '') + '" onclick="toggleStar(this,\'' + starKey + '\')" title="Favorite">' + (isStarred ? '⭐' : '☆') + '</button>' +
+            '<a href="' + item.url + '" target="_blank" onclick="trackClick(\'' + starKey + '\',\'' + item.name.replace(/'/g,"\\'") + '\',\'' + item.tab + '\')">' +
+                '<span class="icon">' + (ICONS[item.type] || '📄') + '</span> <span class="doc-name">' + item.name + (item.suffix ? ' <em style="color:#999;font-size:12px;">' + item.suffix + '</em>' : '') + '</span>' +
+            '</a>' +
+            '<span class="inline-tags">' + item.tags.map(function(t) { return '<span class="inline-tag">' + t + '</span>'; }).join('') + '</span>' +
+            '<span class="badge ' + (BADGE_CLASS[item.type] || '') + '">' + (BADGE_LABEL[item.type] || item.type.toUpperCase()) + '</span>' +
+            '<span class="doc-date' + (isNew(item.date) ? ' new' : '') + '">' + formatDate(item.date) + (isNew(item.date) ? ' 🔥' : '') + '</span>' +
+            '<button class="btn-copy" onclick="copyLink(this,\'' + item.url + '\')" title="Copy link">📋</button>' +
+        '</li>';
+    }
+
+    function renderAll() {
+        var tabs = { docs: [], notebooks: [] };
+        DOCUMENTS.forEach(function(item, i) { item._index = i; if (tabs[item.tab]) tabs[item.tab].push(item); });
+
+        var docsBySection = {}; var sectionOrder = [];
+        tabs.docs.forEach(function(item) {
+            var sec = item.section || 'Other';
+            if (!docsBySection[sec]) { docsBySection[sec] = []; sectionOrder.push(sec); }
+            docsBySection[sec].push(item);
+        });
+        var docsHTML = '';
+        sectionOrder.forEach(function(sec) {
+            var id = 'docs-sec-' + sec.replace(/[^a-zA-Z0-9]/g,'');
+            docsHTML += '<div class="section-header" onclick="toggleSection(this)" data-section="' + id + '"><span class="arrow">▼</span> ' + sec + '<span class="section-count">' + docsBySection[sec].length + ' items</span></div>';
+            docsHTML += '<ul class="doc-list" id="' + id + '">' + docsBySection[sec].map(function(item) { return buildItemHTML(item, item._index); }).join('') + '</ul>';
+        });
+        document.getElementById('docSections-docs').innerHTML = docsHTML;
+        document.getElementById('docList-notebooks').innerHTML = tabs.notebooks.map(function(item) { return buildItemHTML(item, item._index); }).join('');
+
+        document.getElementById('badge-docs').textContent = tabs.docs.length;
+        document.getElementById('badge-notebooks').textContent = tabs.notebooks.length;
+
+        buildTagFilters('docs', tabs.docs);
+        buildTagFilters('notebooks', tabs.notebooks);
+        updateStats(); updateRecentBar();
+        filterTab('docs'); filterTab('notebooks');
+    }
+
+    function buildTagFilters(tab, items) {
+        var c = document.getElementById('tagFilters-' + tab); if (!c) return;
+        var tc = {}; items.forEach(function(i) { i.tags.forEach(function(t) { tc[t] = (tc[t] || 0) + 1; }); });
+        var h = '<span class="tag-filters-label">Filter:</span><span class="tag-chip active" onclick="filterByTag(\'' + tab + '\',\'all\',this)">All <span class="tag-count">' + items.length + '</span></span>';
+        Object.keys(tc).sort().forEach(function(t) { h += '<span class="tag-chip" onclick="filterByTag(\'' + tab + '\',\'' + t + '\',this)">' + t.charAt(0).toUpperCase() + t.slice(1) + ' <span class="tag-count">' + tc[t] + '</span></span>'; });
+        h += '<button class="favorites-toggle" id="favToggle-' + tab + '" onclick="toggleFavorites(\'' + tab + '\')">⭐ Favorites</button>';
+        c.innerHTML = h;
+    }
+
+    // ═══════════════════════
+    // 🔄 LOGIC
+    // ═══════════════════════
+    var activeTags = { docs: 'all', notebooks: 'all' };
+    var favMode = { docs: false, notebooks: false };
+    var analyticsVisible = { docs: false, notebooks: false };
+
+    function switchTab(t) {
+        document.querySelectorAll('.tab-content,.tab-btn').forEach(function(el) { el.classList.remove('active'); });
+        document.getElementById('tab-' + t).classList.add('active');
+        document.querySelector('.tab-btn[data-tab="' + t + '"]').classList.add('active');
+        setTimeout(function() { var s = document.getElementById('searchInput-' + t); if (s) s.focus(); }, 100);
+        updateStats(); updateAnalyticsPanel(t);
+    }
+
+    function filterByTag(tab, tag, chip) {
+        activeTags[tab] = tag; favMode[tab] = false;
+        var c = document.getElementById('tagFilters-' + tab);
+        if (c) { c.querySelectorAll('.tag-chip').forEach(function(el) { el.classList.remove('active'); }); var ft = document.getElementById('favToggle-' + tab); if (ft) ft.classList.remove('active'); }
+        if (chip) chip.classList.add('active');
+        filterTab(tab);
+    }
+
+    function toggleFavorites(tab) {
+        favMode[tab] = !favMode[tab]; activeTags[tab] = 'all';
+        var c = document.getElementById('tagFilters-' + tab);
+        if (c) { c.querySelectorAll('.tag-chip').forEach(function(el) { el.classList.remove('active'); }); if (!favMode[tab]) c.querySelector('.tag-chip').classList.add('active'); }
+        var ft = document.getElementById('favToggle-' + tab); if (ft) ft.classList.toggle('active', favMode[tab]);
+        filterTab(tab);
+    }
+
+    function filterTab(tab) {
+        var inp = document.getElementById('searchInput-' + tab);
+        var f = inp ? inp.value.toLowerCase() : '';
+        var tf = activeTags[tab]; var sf = favMode[tab];
+        var tc = document.getElementById('tab-' + tab); if (!tc) return;
+        var lists = tc.querySelectorAll('.doc-list');
+        var headers = tc.querySelectorAll('.section-header');
+        var nr = document.getElementById('noResults-' + tab);
+        var dc = document.getElementById('docCount-' + tab);
+        var tv = 0, ti = 0;
+        lists.forEach(function(ul) {
+            var li = ul.getElementsByTagName('li'); var sv = 0; ti += li.length;
+            for (var i = 0; i < li.length; i++) {
+                var a = li[i].getElementsByTagName('a')[0];
+                var txt = (a.textContent || a.innerText).toLowerCase();
+                var tags = li[i].getAttribute('data-tags') || '';
+                var idx = li[i].getAttribute('data-index');
+                var starred = !!favorites['item-' + idx];
+                var match = txt.indexOf(f) > -1 && (tf === 'all' || tags.split(' ').indexOf(tf) > -1) && (!sf || starred);
+                if (match) { li[i].classList.remove('hidden'); sv++; tv++; }
+                else { li[i].classList.add('hidden'); }
+            }
+            var sh = ul.previousElementSibling;
+            if (sh && sh.classList.contains('section-header')) {
+                if (f === '' && tf === 'all' && !sf) sh.classList.remove('hidden');
+                else if (sv === 0) sh.classList.add('hidden');
+                else sh.classList.remove('hidden');
+            }
+        });
+        var label = tab === 'notebooks' ? 'notebook' : 'document';
+        dc.textContent = 'Showing ' + tv + ' of ' + ti + ' ' + label + 's';
+        nr.style.display = (tv === 0 && (f || tf !== 'all' || sf)) ? 'block' : 'none';
+    }
+
+    function toggleSection(h) { var l = document.getElementById(h.getAttribute('data-section')); if (!l) return; var c = h.classList.contains('collapsed'); if (c) { h.classList.remove('collapsed'); l.style.display = ''; } else { h.classList.add('collapsed'); l.style.display = 'none'; } }
+
+    function toggleStar(btn, key) {
+        if (favorites[key]) { delete favorites[key]; btn.classList.remove('starred'); btn.innerHTML = '☆'; }
+        else { favorites[key] = true; btn.classList.add('starred'); btn.innerHTML = '⭐'; }
+        saveAll();
+        var at = document.querySelector('.tab-content.active');
+        if (at) filterTab(at.id.replace('tab-',''));
+    }
+
+    function trackClick(key, name, tab) {
+        clickCounts[key] = (clickCounts[key] || 0) + 1;
+        recentViews = recentViews.filter(function(r) { return r.key !== key; });
+        recentViews.unshift({ key: key, name: name, tab: tab });
+        if (recentViews.length > MAX_RECENT) recentViews = recentViews.slice(0, MAX_RECENT);
+        saveAll(); updateRecentBar(); updateAnalyticsPanel(tab);
+    }
+
+    function updateRecentBar() {
+        var b = document.getElementById('recentBar'); var c = document.getElementById('recentChips');
+        if (recentViews.length === 0) { b.classList.remove('visible'); return; }
+        b.classList.add('visible');
+        c.innerHTML = recentViews.map(function(r) { return '<span class="recent-chip" onclick="scrollToItem(\'' + r.key + '\')" title="' + r.name + '">🕐 ' + r.name + '</span>'; }).join('');
+    }
+
+    function scrollToItem(key) {
+        var li = document.querySelector('[data-index="' + key.replace('item-','') + '"]');
+        if (li) {
+            var tab = li.closest('.tab-content'); if (tab) switchTab(tab.id.replace('tab-',''));
+            setTimeout(function() { li.scrollIntoView({ behavior: 'smooth', block: 'center' }); li.style.background = '#fffde0'; setTimeout(function() { li.style.background = ''; }, 2000); }, 200);
+        }
+    }
+
+    function clearRecent() { recentViews = []; saveAll(); updateRecentBar(); showToast('🕐 History cleared'); }
+
+    function toggleAnalytics() {
+        var at = document.querySelector('.tab-content.active'); if (!at) return;
+        var tn = at.id.replace('tab-',''); analyticsVisible[tn] = !analyticsVisible[tn];
+        updateAnalyticsPanel(tn); showToast(analyticsVisible[tn] ? '📊 Stats shown' : '📊 Stats hidden');
+    }
+
+    function updateAnalyticsPanel(tab) {
+        var p = document.getElementById('analyticsPanel-' + tab); var l = document.getElementById('analyticsList-' + tab);
+        if (!p || !l) return;
+        if (!analyticsVisible[tab]) { p.classList.remove('visible'); return; }
+        p.classList.add('visible');
+        var items = [];
+        for (var k in clickCounts) { var idx = parseInt(k.replace('item-','')); if (!isNaN(idx) && idx < DOCUMENTS.length && DOCUMENTS[idx].tab === tab && clickCounts[k] > 0) items.push({ name: DOCUMENTS[idx].name, count: clickCounts[k] }); }
+        items.sort(function(a,b) { return b.count - a.count; }); items = items.slice(0, 5);
+        l.innerHTML = items.length === 0 ? '<li style="color:#999;">No clicks recorded yet. Start browsing!</li>' : items.map(function(item, i) { return '<li><span>' + (i+1) + '.</span> <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + item.name + '</span><span class="analytics-count">' + item.count + ' click' + (item.count>1?'s':'') + '</span></li>'; }).join('');
+    }
+
+    function copyLink(btn, url) {
+        navigator.clipboard.writeText(url).then(function() { btn.innerHTML = '✅'; showToast('✅ Link copied!'); setTimeout(function() { btn.innerHTML = '📋'; }, 1500); }).catch(function() { showToast('❌ Copy failed'); });
+    }
+
+    function showToast(m) { var t = document.getElementById('toast'); t.innerHTML = m; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(function() { t.classList.remove('show'); }, 2000); }
+
+    function updateStats() {
+        document.getElementById('statTotal').textContent = DOCUMENTS.length;
+        document.getElementById('statDocx').textContent = DOCUMENTS.filter(function(d) { return d.type === 'docx'; }).length;
+        document.getElementById('statXlsx').textContent = DOCUMENTS.filter(function(d) { return d.type === 'xlsx'; }).length;
+        document.getElementById('statPyNb').textContent = DOCUMENTS.filter(function(d) { return d.type === 'py' || d.type === 'ipynb'; }).length;
+        document.getElementById('statFavs').textContent = Object.keys(favorites).length;
+        var tc = 0; for (var k in clickCounts) tc += clickCounts[k];
+        document.getElementById('statViews').textContent = tc;
+    }
+
+    function toggleDarkMode() {
+        var r = document.documentElement;
+        var isDark = r.style.getPropertyValue('--bg') === '#1a1a2e';
+        var props = isDark ? { '--bg':'#f0f2f5','--card-bg':'#fff','--text':'#1a1a1a','--text-secondary':'#666','--border':'#f0f0f0','--hover-bg':'#f5f9ff','--section-header-bg':'#f8fafc','--section-header-text':'#555','--btn-copy-bg':'#e8f0f8','--btn-copy-hover':'#d0e0f0','--toast-bg':'#333','--toast-text':'#fff','--stat-bg':'#f8fafc','--stat-border':'#e8ecf0','--tag-bg':'#eef2f7','--tag-text':'#555' } : { '--bg':'#1a1a2e','--card-bg':'#16213e','--text':'#e0e0e0','--text-secondary':'#aaa','--border':'#2a2a4a','--hover-bg':'#1f2f50','--section-header-bg':'#1a2744','--section-header-text':'#bbb','--btn-copy-bg':'#2a3a5c','--btn-copy-hover':'#3a4a6c','--toast-bg':'#f0f0f0','--toast-text':'#222','--stat-bg':'#1a2744','--stat-border':'#2a3a5c','--tag-bg':'#2a3a5c','--tag-text':'#ccc' };
+        for (var p in props) r.style.setProperty(p, props[p]);
+        document.querySelector('.dark-mode-toggle').innerHTML = isDark ? '🌙' : '☀️';
+        localStorage.setItem(STORAGE_THEME, isDark ? 'light' : 'dark');
+    }
+
+    (function() {
+        if (localStorage.getItem(STORAGE_THEME) === 'dark') toggleDarkMode();
+        renderAll();
+        document.querySelectorAll('.tab-btn').forEach(function(b) { b.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); }); });
+        window.addEventListener('scroll', function() { document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400); });
+        document.addEventListener('keydown', function(e) { if ((e.ctrlKey||e.metaKey) && e.key==='k') { e.preventDefault(); var s = document.querySelector('.tab-content.active .search-box'); if (s) { s.focus(); s.select(); } } });
+        updateRecentBar();
+    })();
+    </script>
+</body>
+</html>
