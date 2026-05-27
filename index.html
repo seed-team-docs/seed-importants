@@ -241,9 +241,6 @@
         .btn-star:hover, .btn-copy:hover { background: #f0f0f0; color: #555; }
         .btn-star.starred { color: var(--star-color); }
 
-        .doc-date { font-size: 11.5px; color: #aaa; flex-shrink: 0; width: 80px; text-align: right; white-space: nowrap; }
-        .doc-date.new { color: var(--new-badge); font-weight: 600; }
-
         .badge {
             display: inline-block; font-size: 10.5px; font-weight: 600;
             padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0;
@@ -317,7 +314,6 @@
             .recent-bar { padding: 8px 15px; }
             .search-shortcut { display: none; }
             .badge { font-size: 9px; padding: 2px 6px; }
-            .doc-date { width: auto; font-size: 10px; }
             .inline-tags { display: none; }
             .tag-filters { gap: 4px; }
             .tag-chip { padding: 4px 10px; font-size: 11px; }
@@ -425,83 +421,79 @@
     <script>
     var DOCUMENTS = [
         // ── Foundry Pipelines — User Guides ──
-        { name: "AutoGen.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/AutoGen.docx?web=1", type: "docx", tags: ["foundry"], date: "2025-01-15", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Bronze Data checks.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Bronze%20Data%20checks.ipynb?web=1", type: "ipynb", tags: ["foundry","bronze"], date: "2025-03-01", section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
-        { name: "Checking Notebook.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checking%20Notebook.docx?web=1", type: "docx", tags: ["foundry"], date: "2024-10-05", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Checking.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checking.ipynb?web=1", type: "ipynb", tags: ["foundry"], date: "2025-02-10", section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
-        { name: "Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checklist.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], date: "2024-11-20", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Data_collection_Bronze_Pusher_Parser_Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Data_collection_Bronze_Pusher_Parser_Checklist.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], date: "2025-02-10", section: "📁 Foundry Pipelines — User Guides", tab: "docs", suffix: "(User Guides)" },
-        { name: "Fabric checking.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Fabric%20checking.docx?web=1", type: "docx", tags: ["foundry","fabric"], date: "2025-03-01", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Foundry Pipeline Documents List.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Foundry%20Pipeline%20Documents%20List.docx?web=1", type: "docx", tags: ["foundry"], date: "2024-08-22", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Gold_Check.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Gold_Check.ipynb?web=1", type: "ipynb", tags: ["foundry","gold"], date: "2025-02-20", section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
-        { name: "Inputs and CRDOM files validation.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Inputs%20and%20CRDOM%20files%20validation.xlsx?web=1", type: "xlsx", tags: ["foundry"], date: "2024-12-05", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "MetricRunner.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/MetricRunner.docx?web=1", type: "docx", tags: ["foundry"], date: "2024-09-30", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Optimus.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus.docx?web=1", type: "docx", tags: ["foundry"], date: "2025-01-28", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Optimus_MetricRunner_old.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus_MetricRunner_old.docx?web=1", type: "docx", tags: ["foundry"], date: "2024-11-08", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Optimus_MetricRunner_Quality_Checklist_Draft 1.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus_MetricRunner_Quality_Checklist_Draft%201.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], date: "2025-02-20", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Rosetta UI & Foundry Pipelines – Seed Team.pptx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20%26%20Foundry%20Pipelines%20%E2%80%93%20Seed%20Team.pptx?web=1", type: "pptx", tags: ["foundry","rosetta"], date: "2025-02-05", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Rosetta UI User Manual - Changes Needed.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20User%20Manual%20-%20Changes%20Needed.docx?web=1", type: "docx", tags: ["foundry","rosetta"], date: "2025-02-05", section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
-        { name: "Rosetta UI User Manual.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20User%20Manual.docx?web=1", type: "docx", tags: ["foundry","rosetta"], date: "2024-12-15", section: "📁 Foundry Pipelines — User Guides", tab: "docs", suffix: "(User Guides)" },
+        { name: "AutoGen.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/AutoGen.docx?web=1", type: "docx", tags: ["foundry"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Bronze Data checks.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Bronze%20Data%20checks.ipynb?web=1", type: "ipynb", tags: ["foundry","bronze"], section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
+        { name: "Checking Notebook.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checking%20Notebook.docx?web=1", type: "docx", tags: ["foundry"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Checking.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checking.ipynb?web=1", type: "ipynb", tags: ["foundry"], section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
+        { name: "Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Checklist.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Data_collection_Bronze_Pusher_Parser_Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Data_collection_Bronze_Pusher_Parser_Checklist.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], section: "📁 Foundry Pipelines — User Guides", tab: "docs", suffix: "(User Guides)" },
+        { name: "Fabric checking.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Fabric%20checking.docx?web=1", type: "docx", tags: ["foundry","fabric"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Foundry Pipeline Documents List.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Foundry%20Pipeline%20Documents%20List.docx?web=1", type: "docx", tags: ["foundry"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Gold_Check.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Gold_Check.ipynb?web=1", type: "ipynb", tags: ["foundry","gold"], section: "📁 Foundry Pipelines — User Guides", tab: "notebooks" },
+        { name: "Inputs and CRDOM files validation.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Inputs%20and%20CRDOM%20files%20validation.xlsx?web=1", type: "xlsx", tags: ["foundry"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "MetricRunner.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/MetricRunner.docx?web=1", type: "docx", tags: ["foundry"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Optimus.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus.docx?web=1", type: "docx", tags: ["foundry"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Optimus_MetricRunner_old.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus_MetricRunner_old.docx?web=1", type: "docx", tags: ["foundry"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Optimus_MetricRunner_Quality_Checklist_Draft 1.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Optimus_MetricRunner_Quality_Checklist_Draft%201.xlsx?web=1", type: "xlsx", tags: ["foundry","checklist"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Rosetta UI & Foundry Pipelines – Seed Team.pptx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20%26%20Foundry%20Pipelines%20%E2%80%93%20Seed%20Team.pptx?web=1", type: "pptx", tags: ["foundry","rosetta"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Rosetta UI User Manual - Changes Needed.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20User%20Manual%20-%20Changes%20Needed.docx?web=1", type: "docx", tags: ["foundry","rosetta"], section: "📁 Foundry Pipelines — User Guides", tab: "docs" },
+        { name: "Rosetta UI User Manual.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Foundry%20Pipelines%20-%20User%20Guides/Rosetta%20UI%20User%20Manual.docx?web=1", type: "docx", tags: ["foundry","rosetta"], section: "📁 Foundry Pipelines — User Guides", tab: "docs", suffix: "(User Guides)" },
 
         // ── Compare MDD ──
-        { name: "CompareMDD_v1.0 1.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Compare%20MDD/CompareMDD_v1.0%201.mrs?web=1", type: "mrs", tags: ["mdd"], date: "2025-01-10", section: "📁 Compare MDD", tab: "docs" },
+        { name: "CompareMDD_v1.0 1.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Compare%20MDD/CompareMDD_v1.0%201.mrs?web=1", type: "mrs", tags: ["mdd"], section: "📁 Compare MDD", tab: "docs" },
 
         // ── Azure Setup ──
-        { name: "CreateAzureStructure.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/CreateAzureStructure.txt?web=1", type: "txt", tags: ["azure"], date: "2024-11-01", section: "📁 Azure Setup", tab: "docs" },
+        { name: "CreateAzureStructure.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/CreateAzureStructure.txt?web=1", type: "txt", tags: ["azure"], section: "📁 Azure Setup", tab: "docs" },
 
         // ── Dashboard Templates ──
-        { name: "HBG_CreateDashboardVariableList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_CreateDashboardVariableList.mrs?web=1", type: "mrs", tags: ["dashboard"], date: "2025-02-01", section: "📁 Dashboard Templates", tab: "docs" },
-        { name: "HBG_PowerBIData.bat", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData.bat?web=1", type: "bat", tags: ["dashboard","powerbi"], date: "2025-01-20", section: "📁 Dashboard Templates", tab: "docs" },
-        { name: "HBG_PowerBIData.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData.mrs?web=1", type: "mrs", tags: ["dashboard","powerbi"], date: "2025-01-20", section: "📁 Dashboard Templates", tab: "docs" },
-        { name: "HBG_PowerBIData_BATCH.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData_BATCH.txt?web=1", type: "txt", tags: ["dashboard","powerbi"], date: "2025-01-20", section: "📁 Dashboard Templates", tab: "docs" },
+        { name: "HBG_CreateDashboardVariableList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_CreateDashboardVariableList.mrs?web=1", type: "mrs", tags: ["dashboard"], section: "📁 Dashboard Templates", tab: "docs" },
+        { name: "HBG_PowerBIData.bat", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData.bat?web=1", type: "bat", tags: ["dashboard","powerbi"], section: "📁 Dashboard Templates", tab: "docs" },
+        { name: "HBG_PowerBIData.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData.mrs?web=1", type: "mrs", tags: ["dashboard","powerbi"], section: "📁 Dashboard Templates", tab: "docs" },
+        { name: "HBG_PowerBIData_BATCH.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData_BATCH.txt?web=1", type: "txt", tags: ["dashboard","powerbi"], section: "📁 Dashboard Templates", tab: "docs" },
 
         // ── Dups Finder ──
-        { name: "Extract variable details.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Extract%20variable%20details.mrs?web=1", type: "mrs", tags: ["dups"], date: "2025-02-15", section: "📁 Dups Finder", tab: "docs" },
-        { name: "HBG_CreateQuestionList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/HBG_CreateQuestionList.mrs?web=1", type: "mrs", tags: ["dups"], date: "2025-01-25", section: "📁 Dups Finder", tab: "docs" },
-        { name: "Q_DUPS_FINDER.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Q_DUPS_FINDER.txt?web=1", type: "txt", tags: ["dups"], date: "2024-12-01", section: "📁 Dups Finder", tab: "docs" },
+        { name: "Extract variable details.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Extract%20variable%20details.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
+        { name: "HBG_CreateQuestionList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/HBG_CreateQuestionList.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
+        { name: "Excel data generation_V2.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Excel%20data%20generation_V2.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
+        { name: "Q_DUPS_FINDERv2.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Q_DUPS_FINDERv2.txt?web=1", type: "txt", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
 
         // ── Existence Analyzer ──
-        { name: "Existence_Analyzer.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Existence_Analyzer/Existence_Analyzer.txt?web=1", type: "txt", tags: ["existence"], date: "2025-01-05", section: "📁 Existence Analyzer", tab: "docs" },
+        { name: "Existence_Analyzer.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Existence_Analyzer/Existence_Analyzer.txt?web=1", type: "txt", tags: ["existence"], section: "📁 Existence Analyzer", tab: "docs" },
 
         // ── General Inputs ──
-        { name: "CA_Mapping_Crib_Sheet_161025.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/CA_Mapping_Crib_Sheet_161025.xlsx?web=1", type: "xlsx", tags: ["mapping"], date: "2024-10-25", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Data ingestion and Pipeline execution 3.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Data%20ingestion%20and%20Pipeline%20execution%203.docx?web=1", type: "docx", tags: ["ops"], date: "2025-03-05", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Data_collection_Bronze_Pusher_Parser_Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Data_collection_Bronze_Pusher_Parser_Checklist.xlsx?web=1", type: "xlsx", tags: ["checklist"], date: "2025-01-10", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Duplicate_checking_SQL.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Duplicate_checking_SQL.txt?web=1", type: "txt", tags: ["sql"], date: "2024-08-01", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Existence_Check 1.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Existence_Check%201.ipynb?web=1", type: "ipynb", tags: ["existence"], date: "2025-02-28", section: "📁 General Inputs & Guides", tab: "notebooks" },
-        { name: "Fabric_E2E_Process_&_Validation_Guide v1.0.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_E2E_Process_%26_Validation_Guide%20v1.0.docx?web=1", type: "docx", tags: ["fabric"], date: "2025-02-28", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Fabric_E2E_Process_&_Validation_Guide v1.1.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_E2E_Process_%26_Validation_Guide%20v1.1.docx?web=1", type: "docx", tags: ["fabric"], date: "2025-03-10", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Fabric_UploadTo_BlobStorage.py", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_UploadTo_BlobStorage/Fabric_UploadTo_BlobStorage.py?web=1", type: "py", tags: ["fabric"], date: "2025-03-08", section: "📁 General Inputs & Guides", tab: "notebooks" },
-        { name: "HBG_CreateDashboardVariableList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/HBG_CreateDashboardVariableList.mrs?web=1", type: "mrs", tags: ["dashboard"], date: "2024-12-01", section: "📁 General Inputs & Guides", tab: "docs", suffix: "(root)" },
-        { name: "Legacy DP Best Practices Guidelines v1.0.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Legacy%20DP%20Best%20Practices%20Guidelines%20v1.0.docx?web=1", type: "docx", tags: ["ops"], date: "2024-08-15", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Multi-cell mapping process and guidelines.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Multi-cell%20mapping%20process%20and%20guidelines.docx?web=1", type: "docx", tags: ["mapping","ops"], date: "2025-01-20", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Ops Runbook - Existence Check in Foundry Process.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops%20Runbook%20-%20Existence%20Check%20in%20Foundry%20Process.docx?web=1", type: "docx", tags: ["ops"], date: "2024-11-12", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Ops runbook 101.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops%20runbook%20101.docx?web=1", type: "docx", tags: ["ops"], date: "2024-06-25", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Ops_Runbook_Excel_Summary.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops_Runbook_Excel_Summary.xlsx?web=1", type: "xlsx", tags: ["ops"], date: "2024-07-30", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Q & A Code naming convention.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Q%20%26%20A%20Code%20naming%20convention.docx?web=1", type: "docx", tags: ["ops"], date: "2024-09-05", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Rosetta UI User Manual.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta%20UI%20User%20Manual.docx?web=1", type: "docx", tags: ["rosetta"], date: "2024-12-01", section: "📁 General Inputs & Guides", tab: "docs" },
-        { name: "Rosetta.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta.docx?web=1", type: "docx", tags: ["rosetta"], date: "2024-04-18", section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "CA_Mapping_Crib_Sheet_161025.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/CA_Mapping_Crib_Sheet_161025.xlsx?web=1", type: "xlsx", tags: ["mapping"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Data ingestion and Pipeline execution 3.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Data%20ingestion%20and%20Pipeline%20execution%203.docx?web=1", type: "docx", tags: ["ops"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Data_collection_Bronze_Pusher_Parser_Checklist.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Data_collection_Bronze_Pusher_Parser_Checklist.xlsx?web=1", type: "xlsx", tags: ["checklist"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Duplicate_checking_SQL.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Duplicate_checking_SQL.txt?web=1", type: "txt", tags: ["sql"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Existence_Check 1.ipynb", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Existence_Check%201.ipynb?web=1", type: "ipynb", tags: ["existence"], section: "📁 General Inputs & Guides", tab: "notebooks" },
+        { name: "Fabric_E2E_Process_&_Validation_Guide v1.0.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_E2E_Process_%26_Validation_Guide%20v1.0.docx?web=1", type: "docx", tags: ["fabric"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Fabric_E2E_Process_&_Validation_Guide v1.1.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_E2E_Process_%26_Validation_Guide%20v1.1.docx?web=1", type: "docx", tags: ["fabric"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Fabric_UploadTo_BlobStorage.py", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Fabric_UploadTo_BlobStorage/Fabric_UploadTo_BlobStorage.py?web=1", type: "py", tags: ["fabric"], section: "📁 General Inputs & Guides", tab: "notebooks" },
+        { name: "HBG_CreateDashboardVariableList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/HBG_CreateDashboardVariableList.mrs?web=1", type: "mrs", tags: ["dashboard"], section: "📁 General Inputs & Guides", tab: "docs", suffix: "(root)" },
+        { name: "Legacy DP Best Practices Guidelines v1.0.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Legacy%20DP%20Best%20Practices%20Guidelines%20v1.0.docx?web=1", type: "docx", tags: ["ops"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Multi-cell mapping process and guidelines.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Multi-cell%20mapping%20process%20and%20guidelines.docx?web=1", type: "docx", tags: ["mapping","ops"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Ops Runbook - Existence Check in Foundry Process.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops%20Runbook%20-%20Existence%20Check%20in%20Foundry%20Process.docx?web=1", type: "docx", tags: ["ops"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Ops runbook 101.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops%20runbook%20101.docx?web=1", type: "docx", tags: ["ops"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Ops_Runbook_Excel_Summary.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Ops_Runbook_Excel_Summary.xlsx?web=1", type: "xlsx", tags: ["ops"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Q & A Code naming convention.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Q%20%26%20A%20Code%20naming%20convention.docx?web=1", type: "docx", tags: ["ops"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Rosetta UI User Manual.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta%20UI%20User%20Manual.docx?web=1", type: "docx", tags: ["rosetta"], section: "📁 General Inputs & Guides", tab: "docs" },
+        { name: "Rosetta.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Rosetta.docx?web=1", type: "docx", tags: ["rosetta"], section: "📁 General Inputs & Guides", tab: "docs" },
 
-        // ── Quick Links (new tab) ──
-        { name: "Fabric Workspace", url: "https://app.fabric.microsoft.com/home?experience=power-bi", type: "link", tags: ["fabric","powerbi"], date: "2025-05-01", section: "📁 Fabric & Power BI", tab: "links" },
-        { name: "Enabler-PROD Workspace", url: "https://app.powerbi.com/groups/3ec837d5-83b7-445e-b251-5879baf1985b/mirroredwarehouses/01cbedb5-0098-46fc-a718-2bd367efab41?experience=fabric-developer&selectedNodePath=01cbedb5-0098-46fc-a718-2bd367efab41%2FQueries%2FMyQueries%2F8521&selectedNodeDisplayValue=SQL%20query%201", type: "link", tags: ["enabler","prod"], date: "2025-05-01", section: "📁 Fabric & Power BI", tab: "links" },
-        { name: "Enabler-UAT Workspace", url: "https://app.fabric.microsoft.com/groups/dc25e6bd-1f4c-4f5b-8959-9468ec0d151e/mirroredwarehouses/b52574f9-9ba8-49ef-bd51-5d1f35c41d96?experience=fabric-developer&selectedNodePath=b52574f9-9ba8-49ef-bd51-5d1f35c41d96%2FQueries%2FMyQueries%2Fdb53f3df-9f33-4e75-84ea-ccf1753fef3b&selectedNodeDisplayValue=SQL%20query%201", type: "link", tags: ["enabler","uat"], date: "2025-05-01", section: "📁 Fabric & Power BI", tab: "links" },
-
-        { name: "Rosetta Mapping Tool (PRD)", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["rosetta","prd"], date: "2025-05-01", section: "📁 Rosetta Tools", tab: "links" },
-        { name: "Rosetta Mapping Tool (UAT)", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["rosetta","uat"], date: "2025-05-01", section: "📁 Rosetta Tools", tab: "links" },
-
-        { name: "Landing for ALD Data (PRD)", url: "https://portal.azure.com/#home", type: "link", tags: ["azure","ald"], date: "2025-05-01", section: "📁 Other Tools", tab: "links" },
-        { name: "Gold Check", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["gold","check"], date: "2025-05-01", section: "📁 Other Tools", tab: "links" },
-        { name: "Studio", url: "https://insightsstudio.kantar.com/", type: "link", tags: ["studio","kantar"], date: "2025-05-01", section: "📁 Other Tools", tab: "links" }
+        // ── Quick Links ──
+        { name: "Fabric Workspace", url: "https://app.fabric.microsoft.com/home?experience=power-bi", type: "link", tags: ["fabric","powerbi"], section: "📁 Fabric & Power BI", tab: "links" },
+        { name: "Enabler-PROD Workspace", url: "https://app.powerbi.com/groups/3ec837d5-83b7-445e-b251-5879baf1985b/mirroredwarehouses/01cbedb5-0098-46fc-a718-2bd367efab41?experience=fabric-developer&selectedNodePath=01cbedb5-0098-46fc-a718-2bd367efab41%2FQueries%2FMyQueries%2F8521&selectedNodeDisplayValue=SQL%20query%201", type: "link", tags: ["enabler","prod"], section: "📁 Fabric & Power BI", tab: "links" },
+        { name: "Enabler-UAT Workspace", url: "https://app.fabric.microsoft.com/groups/dc25e6bd-1f4c-4f5b-8959-9468ec0d151e/mirroredwarehouses/b52574f9-9ba8-49ef-bd51-5d1f35c41d96?experience=fabric-developer&selectedNodePath=b52574f9-9ba8-49ef-bd51-5d1f35c41d96%2FQueries%2FMyQueries%2Fdb53f3df-9f33-4e75-84ea-ccf1753fef3b&selectedNodeDisplayValue=SQL%20query%201", type: "link", tags: ["enabler","uat"], section: "📁 Fabric & Power BI", tab: "links" },
+        { name: "Rosetta Mapping Tool (PRD)", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["rosetta","prd"], section: "📁 Rosetta Tools", tab: "links" },
+        { name: "Rosetta Mapping Tool (UAT)", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["rosetta","uat"], section: "📁 Rosetta Tools", tab: "links" },
+        { name: "Landing for ALD Data (PRD)", url: "https://portal.azure.com/#home", type: "link", tags: ["azure","ald"], section: "📁 Other Tools", tab: "links" },
+        { name: "Gold Check", url: "https://teams.microsoft.com/l/message/19:meeting_YWNlZTNjZjAtM2I2NC00NzVmLTkxNjQtODRkMGZlMTU1YzFk@thread.v2/1779701652806?context=%7B%22contextType%22%3A%22chat%22%7D", type: "link", tags: ["gold","check"], section: "📁 Other Tools", tab: "links" },
+        { name: "Studio", url: "https://insightsstudio.kantar.com/", type: "link", tags: ["studio","kantar"], section: "📁 Other Tools", tab: "links" }
     ];
 
-    // ═══════════════════════════════════════════
-    // 💾 LOCAL STORAGE
-    // ═══════════════════════════════════════════
-    var STORAGE_FAVORITES = 'seed-favs-v3';
-    var STORAGE_RECENT = 'seed-recent-v3';
-    var STORAGE_CLICKS = 'seed-clicks-v3';
-    var STORAGE_THEME = 'seed-theme-v3';
+    var STORAGE_FAVORITES = 'seed-favs-v4';
+    var STORAGE_RECENT = 'seed-recent-v4';
+    var STORAGE_CLICKS = 'seed-clicks-v4';
+    var STORAGE_THEME = 'seed-theme-v4';
 
     var favorites = JSON.parse(localStorage.getItem(STORAGE_FAVORITES) || '{}');
     var recentViews = JSON.parse(localStorage.getItem(STORAGE_RECENT) || '[]');
@@ -517,23 +509,18 @@
     var ICONS = { docx: '📝', xlsx: '📊', py: '🐍', ipynb: '📓', mrs: '⚙️', txt: '📃', bat: '💻', pptx: '📽️', link: '🔗' };
     var BADGE_CLASS = { docx: 'badge-docx', xlsx: 'badge-xlsx', py: 'badge-py', ipynb: 'badge-ipynb', mrs: 'badge-mrs', txt: 'badge-txt', bat: 'badge-bat', pptx: 'badge-pptx', link: 'badge-link' };
     var BADGE_LABEL = { docx: 'DOCX', xlsx: 'XLSX', py: 'PY', ipynb: 'IPYNB', mrs: 'MRS', txt: 'TXT', bat: 'BAT', pptx: 'PPTX', link: 'LINK' };
-    var NEW_THRESHOLD_DAYS = 60;
     var MAX_RECENT = 8;
-
-    function isNew(d) { return (new Date() - new Date(d)) / 86400000 <= NEW_THRESHOLD_DAYS; }
-    function formatDate(d) { var dt = new Date(d); return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dt.getMonth()] + ' ' + dt.getDate(); }
 
     function buildItemHTML(item, index) {
         var starKey = 'item-' + index;
         var isStarred = !!favorites[starKey];
-        return '<li data-index="' + index + '" data-tags="' + item.tags.join(' ') + '" data-date="' + item.date + '">' +
+        return '<li data-index="' + index + '" data-tags="' + item.tags.join(' ') + '">' +
             '<button class="btn-star' + (isStarred ? ' starred' : '') + '" onclick="toggleStar(this,\'' + starKey + '\')" title="Favorite">' + (isStarred ? '⭐' : '☆') + '</button>' +
             '<a href="' + item.url + '" target="_blank" onclick="trackClick(\'' + starKey + '\',\'' + item.name.replace(/'/g,"\\'") + '\',\'' + item.tab + '\')">' +
                 '<span class="icon">' + (ICONS[item.type] || '📄') + '</span> <span class="doc-name">' + item.name + (item.suffix ? ' <em style="color:#999;font-size:12px;">' + item.suffix + '</em>' : '') + '</span>' +
             '</a>' +
             '<span class="inline-tags">' + item.tags.map(function(t) { return '<span class="inline-tag">' + t + '</span>'; }).join('') + '</span>' +
             '<span class="badge ' + (BADGE_CLASS[item.type] || '') + '">' + (BADGE_LABEL[item.type] || item.type.toUpperCase()) + '</span>' +
-            '<span class="doc-date' + (isNew(item.date) ? ' new' : '') + '">' + formatDate(item.date) + (isNew(item.date) ? ' 🔥' : '') + '</span>' +
             '<button class="btn-copy" onclick="copyLink(this,\'' + item.url + '\')" title="Copy link">📋</button>' +
         '</li>';
     }
@@ -542,7 +529,6 @@
         var tabs = { docs: [], notebooks: [], links: [] };
         DOCUMENTS.forEach(function(item, i) { item._index = i; if (tabs[item.tab]) tabs[item.tab].push(item); });
 
-        // Docs
         var docsBySection = {}; var docsOrder = [];
         tabs.docs.forEach(function(item) {
             var sec = item.section || 'Other';
@@ -556,11 +542,8 @@
             docsHTML += '<ul class="doc-list" id="' + id + '">' + docsBySection[sec].map(function(item) { return buildItemHTML(item, item._index); }).join('') + '</ul>';
         });
         document.getElementById('docSections-docs').innerHTML = docsHTML;
-
-        // Notebooks
         document.getElementById('docList-notebooks').innerHTML = tabs.notebooks.map(function(item) { return buildItemHTML(item, item._index); }).join('');
 
-        // Quick Links
         var linksBySection = {}; var linksOrder = [];
         tabs.links.forEach(function(item) {
             var sec = item.section || 'Other';
