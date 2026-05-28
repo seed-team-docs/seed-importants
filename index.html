@@ -43,7 +43,9 @@
             --tag-active-text: #fff;
             --stat-bg: #f8fafc;
             --stat-border: #e8ecf0;
-            --new-badge: #ff6b6b;
+            --modal-overlay: rgba(0,0,0,0.5);
+            --modal-bg: #fff;
+            --modal-text: #333;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -232,13 +234,14 @@
         .doc-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
 
-        .btn-star, .btn-copy {
+        .btn-star, .btn-copy, .btn-info {
             background: none; border: none; cursor: pointer; font-size: 15px;
             padding: 4px 5px; line-height: 1; border-radius: 4px;
             transition: all 0.15s; color: #bbb; flex-shrink: 0;
         }
         .btn-star { font-size: 16px; }
-        .btn-star:hover, .btn-copy:hover { background: #f0f0f0; color: #555; }
+        .btn-info { font-size: 15px; }
+        .btn-star:hover, .btn-copy:hover, .btn-info:hover { background: #f0f0f0; color: #555; }
         .btn-star.starred { color: var(--star-color); }
 
         .badge {
@@ -277,10 +280,99 @@
             padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-left: auto;
         }
 
+        /* Info Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--modal-overlay);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.visible { display: flex; }
+        .modal {
+            background: var(--modal-bg);
+            color: var(--modal-text);
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+            line-height: 1;
+        }
+        .modal-close:hover { color: #333; }
+        .modal pre {
+            white-space: pre-wrap;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+            color: var(--text);
+        }
+
+        /* TOC inside README modal */
+        .modal-toc {
+            background: #f4f6f8;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .modal-toc h3 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .modal-toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .modal-toc li {
+            padding: 3px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-toc li:last-child { border-bottom: none; }
+        .modal-toc a {
+            color: var(--link);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-toc a:hover { text-decoration: underline; }
+        .readme-section {
+            scroll-margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .readme-section.highlight {
+            background: #fffde0;
+        }
+
         .toast {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: var(--toast-bg); color: var(--toast-text); padding: 10px 22px;
-            border-radius: 20px; font-size: 13px; z-index: 999; opacity: 0;
+            border-radius: 20px; font-size: 13px; z-index: 9999; opacity: 0;
             pointer-events: none; transition: opacity 0.3s;
         }
         .toast.show { opacity: 1; }
@@ -414,6 +506,178 @@
 
     </div>
 
+    <!-- Info Modal -->
+    <div class="modal-overlay" id="readmeModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeReadme()">&#x2715;</button>
+            <h2 id="readmeTitle" style="margin-bottom:12px;"></h2>
+            <pre id="readmeContent"></pre>
+        </div>
+    </div>
+
+    <!-- Hidden README templates (add more as needed) -->
+    <script type="text/template" id="readme-qdups">
+README.txt for QDUPS FINDER v2.0
+QDUPS FINDER v2.0 is a Python tool that detects duplicates, multi‑line labels, and blank entries in survey metadata files. It provides a detailed, navigable Excel report with highlighting, summary sheets, and statistics.
+
+The tool works in three modes:
+• Mode 1 – TXT input (parses Define Lists & Questions from .txt)
+• Mode 2 – Excel input (reads a variable‑map .xlsx, analyses each sheet)
+• Mode 3 – Duplicate Checker (scans Excel cells for duplicate items within one cell)
+
+SYSTEM REQUIREMENTS
+• Python 3.7 or newer (tested with 3.9+)
+• Required Python packages:
+
+openpyxl (install with: pip install openpyxl)
+
+tkinter is normally included with Python; if missing, install python3-tk.
+
+• The tool runs on Windows, macOS, and Linux with a graphical desktop.
+
+INSTALLATION
+Save the script (e.g., qdups_finder.py) to a convenient folder.
+
+Install dependencies:
+pip install openpyxl
+
+Ensure tkinter is available. On Ubuntu/Debian you may need:
+sudo apt-get install python3-tk
+
+LAUNCHING THE TOOL
+Open a terminal (or command prompt) and run:
+
+python qdups_finder.py
+
+A window titled "QDUPS FINDERv2.0" will appear.
+
+GENERAL WORKFLOW
+A. Choose a mode using the radio buttons at the top.
+B. Select the input file produced by your script (see below).
+C. Choose a name and location for the output Excel report.
+D. Click "Generate Excel" and wait for the process to finish.
+E. Open the generated .xlsx file to explore duplicates, multiline/blank issues, and statistics.
+
+MODE 1 – TXT INPUT (Define Lists & Questions)
+Input source: Output from "HBG_CreateQuestionList.mrs"
+
+Run "HBG_CreateQuestionList.mrs" to produce a .txt file.
+The file should contain DEFINE LIST and QUESTION blocks with response lists.
+
+In the QDUPS FINDER window, select:
+📄 Mode 1: TXT file (Define Lists & Questions)
+
+Click "Browse" next to "Input File" and choose the .txt file.
+
+The output path is auto‑filled, but you can change it by clicking "Browse" under "Output File".
+The output will be an .xlsx Excel workbook.
+
+Click "⚡ Generate Excel".
+
+When finished, a popup shows the number of define lists, questions, and duplicates found.
+Open the Excel report. It contains:
+• TOC sheet – links to every define list and question
+• DUPLICATES sheet – all duplicate codes/labels
+• MULTILINE sheet – multi‑line and blank labels/codes
+• STATS sheet – file statistics and a quality score
+• Individual sheets per define list (prefixed DL_) and per question (prefixed Q_)
+
+The sheet names are made safe (max 31 chars, no special characters).
+
+MODE 2 – EXCEL INPUT (Variable Map)
+Input source: Output from "Extract variable details.mrs"
+
+Run "Extract variable details.mrs" to produce a .xlsx file that contains variable information.
+The tool expects columns such as:
+
+Object Type, Variable Name, Variable Label, DataType (headers may vary).
+
+In the QDUPS FINDER window, select:
+📊 Mode 2: Excel file (.xlsx variable map)
+
+Choose your input .xlsx file.
+
+Set the output path (default is the same folder with "_output.xlsx" appended).
+
+Click "Generate Excel".
+
+The resulting workbook includes:
+• TOC sheet – links to every variable, grouped by object type.
+• DUPLICATES sheet – duplicate variable names and duplicate categorical codes/labels.
+• MULTILINE sheet – multi‑line/blank variable names, labels, and categorical entries.
+• STATS sheet – file overview, variable type breakdown, quality score.
+• Per‑variable detail sheets (original row preserved, duplicates highlighted).
+• Per‑type group sheets (GRP_ prefix).
+
+MODE 3 – DUPLICATE CHECKER (Within‑cell Duplicates)
+Input source: Output from "Excel data generation_V2.mrs"
+
+This mode looks inside each cell and finds duplicate items separated by common delimiters (commas, semicolons, pipes, tabs, newlines).
+It is useful when a single cell contains a list of values (e.g., category codes) and you want to catch accidental repetitions.
+
+Run "Excel data generation_V2.mrs" to obtain any .xlsx file.
+It can be a survey response data export or any Excel sheet with concatenated values.
+
+In the tool window, select:
+🔍 Mode 3: Duplicate Checker (find duplicates within cells)
+
+Browse for your input .xlsx file.
+
+The output will be a new Excel workbook (default name: <input>_duplicate_report.xlsx).
+
+Click "Generate Excel".
+
+The report contains:
+• SUMMARY sheet – list of all sheets that contain cells with internal duplicates.
+• Detail sheets per input sheet (prefixed DUP_) – each shows cell reference, column header,
+first‑column ID, original value, duplicate items, and their occurrence counts.
+
+Internal duplicates are highlighted in red, and hyperlinks let you jump between summary and detail sheets.
+
+UNDERSTANDING THE OUTPUT EXCEL
+Every output workbook shares these elements:
+
+• TOC / SUMMARY – Navigate to any sheet. Duplicates and multiline counts are shown.
+• DUPLICATES – Lists every duplicated code/name across the whole file.
+• STATS – File‑level statistics (number of lists/variables, empty items, quality score 0‑100).
+• MULTILINE – Every label/code that contains a newline or is blank. Multi‑line entries are flagged in orange, blank entries in grey.
+• Colour coding:
+
+Red background with bold red text = duplicate
+
+Orange background = multi‑line label
+
+Light grey background with grey italic text = blank entry
+• Hyperlinks (blue underlined) connect TOC to detail sheets, and detail sheets back to TOC.
+
+TROUBLESHOOTING
+"Cannot open Excel file": The input .xlsx may be corrupted or password‑protected.
+Try re‑saving it from Excel before using the tool.
+
+If the progress bar seems stuck, check the terminal for error messages.
+Large files may take several minutes; please be patient.
+
+The tool expects UTF‑8 or UTF‑16 encoded .txt files in Mode 1.
+If your .txt file uses another encoding, convert it to UTF‑8 first.
+
+On macOS, if tkinter is not found, install it via Homebrew: brew install python-tk
+
+If sheet names become too long (more than 31 characters), the tool automatically truncates
+and appends a number to avoid duplicates. Hyperlinks will still work.
+
+NOTES
+The tool is designed to work with the specific output of your .mrs scripts.
+Make sure you are using the correct mode for each input file.
+
+You can process multiple files sequentially; the GUI remains open after each run.
+
+The “Quality Score” is a rough indicator based on duplicate/empty item ratios.
+A score of 100 means no duplicates, no blanks, and no multi‑line issues were found.
+
+Developed by Joemar Greta.
+For any questions, please refer to the original documentation or contact the developer.
+    </script>
+
     <div class="toast" id="toast"></div>
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#x2191;</button>
     <footer>SEED IMPORTANTS &bull; All links open in new tabs &bull; Preferences stored locally</footer>
@@ -455,7 +719,7 @@
         { name: "Extract variable details.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Extract%20variable%20details.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
         { name: "HBG_CreateQuestionList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/HBG_CreateQuestionList.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
         { name: "Excel data generation_V2.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Excel%20data%20generation_V2.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
-        { name: "Q_DUPS_FINDERv2.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Q_DUPS_FINDERv2.txt?web=1", type: "txt", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
+        { name: "Q_DUPS_FINDERv2.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Q_DUPS_FINDERv2.txt?web=1", type: "txt", tags: ["dups"], section: "📁 Dups Finder", tab: "docs", readmeId: "readme-qdups" },
 
         // ── Existence Analyzer ──
         { name: "Existence_Analyzer.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Existence_Analyzer/Existence_Analyzer.txt?web=1", type: "txt", tags: ["existence"], section: "📁 Existence Analyzer", tab: "docs" },
@@ -514,6 +778,7 @@
     function buildItemHTML(item, index) {
         var starKey = 'item-' + index;
         var isStarred = !!favorites[starKey];
+        var infoBtn = item.readmeId ? '<button class="btn-info" onclick="openReadme(\'' + item.readmeId + '\',\'' + item.name.replace(/'/g,"\\'") + '\')" title="View README">&#x2139;&#xFE0F;</button>' : '';
         return '<li data-index="' + index + '" data-tags="' + item.tags.join(' ') + '">' +
             '<button class="btn-star' + (isStarred ? ' starred' : '') + '" onclick="toggleStar(this,\'' + starKey + '\')" title="Favorite">' + (isStarred ? '⭐' : '☆') + '</button>' +
             '<a href="' + item.url + '" target="_blank" onclick="trackClick(\'' + starKey + '\',\'' + item.name.replace(/'/g,"\\'") + '\',\'' + item.tab + '\')">' +
@@ -522,6 +787,7 @@
             '<span class="inline-tags">' + item.tags.map(function(t) { return '<span class="inline-tag">' + t + '</span>'; }).join('') + '</span>' +
             '<span class="badge ' + (BADGE_CLASS[item.type] || '') + '">' + (BADGE_LABEL[item.type] || item.type.toUpperCase()) + '</span>' +
             '<button class="btn-copy" onclick="copyLink(this,\'' + item.url + '\')" title="Copy link">📋</button>' +
+            infoBtn +
         '</li>';
     }
 
@@ -697,6 +963,87 @@
 
     function showToast(m) { var t = document.getElementById('toast'); t.innerHTML = m; t.classList.add('show'); clearTimeout(t._t); t._t = setTimeout(function() { t.classList.remove('show'); }, 2000); }
 
+    // README Modal
+    function openReadme(id, title) {
+        var template = document.getElementById(id);
+        if (!template) return;
+
+        var rawText = template.textContent.trim();
+        document.getElementById('readmeTitle').textContent = '📖 ' + title + ' — README';
+
+        // Parse sections and build TOC + anchored content
+        var lines = rawText.split('\n');
+        var tocItems = [];
+        var contentHTML = '';
+        var sectionIdCounter = 0;
+
+        var headingPatterns = [
+            /^[A-Z][A-Z\s\-]+\s*$/,
+            /^MODE\s+\d/,
+            /^UNDERSTANDING\sTHE\sOUTPUT/,
+            /^TROUBLESHOOTING/,
+            /^NOTES/
+        ];
+
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            var isHeading = false;
+            for (var p = 0; p < headingPatterns.length; p++) {
+                if (headingPatterns[p].test(line.trim())) {
+                    isHeading = true;
+                    break;
+                }
+            }
+
+            if (isHeading && line.trim().length > 2) {
+                var headingText = line.trim();
+                var anchorId = 'sec-' + (sectionIdCounter++);
+                tocItems.push({ title: headingText, id: anchorId });
+                contentHTML += '<span class="readme-section" id="' + anchorId + '"><strong>' + headingText + '</strong></span>\n';
+            } else {
+                contentHTML += line + '\n';
+            }
+        }
+
+        var tocHTML = '';
+        if (tocItems.length > 0) {
+            tocHTML = '<div class="modal-toc"><h3>📑 Table of Contents</h3><ul>';
+            tocItems.forEach(function(item) {
+                tocHTML += '<li><a onclick="scrollToSection(\'' + item.id + '\')">' + item.title + '</a></li>';
+            });
+            tocHTML += '</ul></div>';
+        }
+
+        var preElement = document.getElementById('readmeContent');
+        preElement.innerHTML = tocHTML + contentHTML;
+
+        document.getElementById('readmeModal').classList.add('visible');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function scrollToSection(id) {
+        var el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            el.classList.add('highlight');
+            setTimeout(function() { el.classList.remove('highlight'); }, 2000);
+        }
+    }
+
+    function closeReadme() {
+        document.getElementById('readmeModal').classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('readmeModal').addEventListener('click', function(e) {
+        if (e.target === this) closeReadme();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && document.getElementById('readmeModal').classList.contains('visible')) {
+            closeReadme();
+        }
+    });
+
     function updateStats() {
         document.getElementById('statTotal').textContent = DOCUMENTS.length;
         document.getElementById('statDocx').textContent = DOCUMENTS.filter(function(d) { return d.type === 'docx'; }).length;
@@ -710,7 +1057,7 @@
     function toggleDarkMode() {
         var r = document.documentElement;
         var isDark = r.style.getPropertyValue('--bg') === '#1a1a2e';
-        var props = isDark ? { '--bg':'#f0f2f5','--card-bg':'#fff','--text':'#1a1a1a','--text-secondary':'#666','--border':'#f0f0f0','--hover-bg':'#f5f9ff','--section-header-bg':'#f8fafc','--section-header-text':'#555','--btn-copy-bg':'#e8f0f8','--btn-copy-hover':'#d0e0f0','--toast-bg':'#333','--toast-text':'#fff','--stat-bg':'#f8fafc','--stat-border':'#e8ecf0','--tag-bg':'#eef2f7','--tag-text':'#555' } : { '--bg':'#1a1a2e','--card-bg':'#16213e','--text':'#e0e0e0','--text-secondary':'#aaa','--border':'#2a2a4a','--hover-bg':'#1f2f50','--section-header-bg':'#1a2744','--section-header-text':'#bbb','--btn-copy-bg':'#2a3a5c','--btn-copy-hover':'#3a4a6c','--toast-bg':'#f0f0f0','--toast-text':'#222','--stat-bg':'#1a2744','--stat-border':'#2a3a5c','--tag-bg':'#2a3a5c','--tag-text':'#ccc' };
+        var props = isDark ? { '--bg':'#f0f2f5','--card-bg':'#fff','--text':'#1a1a1a','--text-secondary':'#666','--border':'#f0f0f0','--hover-bg':'#f5f9ff','--section-header-bg':'#f8fafc','--section-header-text':'#555','--btn-copy-bg':'#e8f0f8','--btn-copy-hover':'#d0e0f0','--toast-bg':'#333','--toast-text':'#fff','--stat-bg':'#f8fafc','--stat-border':'#e8ecf0','--tag-bg':'#eef2f7','--tag-text':'#555','--modal-bg':'#fff','--modal-text':'#333' } : { '--bg':'#1a1a2e','--card-bg':'#16213e','--text':'#e0e0e0','--text-secondary':'#aaa','--border':'#2a2a4a','--hover-bg':'#1f2f50','--section-header-bg':'#1a2744','--section-header-text':'#bbb','--btn-copy-bg':'#2a3a5c','--btn-copy-hover':'#3a4a6c','--toast-bg':'#f0f0f0','--toast-text':'#222','--stat-bg':'#1a2744','--stat-border':'#2a3a5c','--tag-bg':'#2a3a5c','--tag-text':'#ccc','--modal-bg':'#1e2a4a','--modal-text':'#ddd' };
         for (var p in props) r.style.setProperty(p, props[p]);
         document.querySelector('.dark-mode-toggle').innerHTML = isDark ? '🌙' : '☀️';
         localStorage.setItem(STORAGE_THEME, isDark ? 'light' : 'dark');
