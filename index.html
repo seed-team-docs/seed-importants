@@ -21,6 +21,7 @@
             --tab-active-border: #4da6ff;
             --badge-docx: #e8f4fd; --badge-docx-text: #1a6eb5;
             --badge-xlsx: #e8f8e8; --badge-xlsx-text: #2d7d2d;
+            --badge-xlsm: #c8e6c9; --badge-xlsm-text: #1b5e20;
             --badge-py: #fdf0e0; --badge-py-text: #b55a1a;
             --badge-ipynb: #fde8e0; --badge-ipynb-text: #c0501a;
             --badge-mrs: #e8e0f8; --badge-mrs-text: #5a2d9e;
@@ -250,6 +251,7 @@
         }
         .badge-docx { background: var(--badge-docx); color: var(--badge-docx-text); }
         .badge-xlsx { background: var(--badge-xlsx); color: var(--badge-xlsx-text); }
+        .badge-xlsm { background: var(--badge-xlsm); color: var(--badge-xlsm-text); }
         .badge-py { background: var(--badge-py); color: var(--badge-py-text); }
         .badge-ipynb { background: var(--badge-ipynb); color: var(--badge-ipynb-text); }
         .badge-mrs { background: var(--badge-mrs); color: var(--badge-mrs-text); }
@@ -715,14 +717,19 @@ For any questions, please refer to the original documentation or contact the dev
         { name: "HBG_PowerBIData.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData.mrs?web=1", type: "mrs", tags: ["dashboard","powerbi"], section: "📁 Dashboard Templates", tab: "docs" },
         { name: "HBG_PowerBIData_BATCH.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/DASHBOARD%20TEMPLATES/HBG_PowerBIData_BATCH.txt?web=1", type: "txt", tags: ["dashboard","powerbi"], section: "📁 Dashboard Templates", tab: "docs" },
 
-        // ── Dups Finder ──
-        { name: "Extract variable details.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Extract%20variable%20details.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
-        { name: "HBG_CreateQuestionList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/HBG_CreateQuestionList.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
-        { name: "Excel data generation_V2.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Excel%20data%20generation_V2.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
-        { name: "Q_DUPS_FINDERv2.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Dups_Finder/Q_DUPS_FINDERv2.txt?web=1", type: "txt", tags: ["dups"], section: "📁 Dups Finder", tab: "docs", readmeId: "readme-qdups" },
+        // ── Dups Finder (updated Tools paths) ──
+        { name: "Extract variable details.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Tools/Dups_Finder/Extract%20variable%20details.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
+        { name: "HBG_CreateQuestionList.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Tools/Dups_Finder/HBG_CreateQuestionList.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
+        { name: "Excel data generation_V2.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Tools/Dups_Finder/Excel%20data%20generation_V2.mrs?web=1", type: "mrs", tags: ["dups"], section: "📁 Dups Finder", tab: "docs" },
+        { name: "Q_DUPS_FINDERv2.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Tools/Dups_Finder/Q_DUPS_FINDERv2.txt?web=1", type: "txt", tags: ["dups"], section: "📁 Dups Finder", tab: "docs", readmeId: "readme-qdups" },
 
-        // ── Existence Analyzer ──
-        { name: "Existence_Analyzer.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/Existence_Analyzer/Existence_Analyzer.txt?web=1", type: "txt", tags: ["existence"], section: "📁 Existence Analyzer", tab: "docs" },
+        // ── Existence Analyzer (updated Tools path) ──
+        { name: "Existence_Analyzer.txt", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Tools/Existence_Analyzer/Existence_Analyzer.txt?web=1", type: "txt", tags: ["existence"], section: "📁 Existence Analyzer", tab: "docs" },
+
+        // ── UC3 System Info Tool ──
+        { name: "PopulateExcel.mrs", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/UC3%20System%20Info%20Tool/PopulateExcel.mrs?web=1", type: "mrs", tags: ["uc3"], section: "📁 UC3 System Info Tool", tab: "docs" },
+        { name: "System_Spec_Template_v0.52.xlsm", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/UC3%20System%20Info%20Tool/System_Spec_Template_v0.52.xlsm?web=1", type: "xlsm", tags: ["uc3","template"], section: "📁 UC3 System Info Tool", tab: "docs" },
+        { name: "UC3 System Info Tool Instructions.docx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/UC3%20System%20Info%20Tool/UC3%20System%20Info%20Tool%20Instructions.docx?web=1", type: "docx", tags: ["uc3","instructions"], section: "📁 UC3 System Info Tool", tab: "docs" },
 
         // ── General Inputs ──
         { name: "CA_Mapping_Crib_Sheet_161025.xlsx", url: "https://ktglbuc.sharepoint.com/sites/DgTx-SeedTeam/Shared%20Documents/Inputs/CA_Mapping_Crib_Sheet_161025.xlsx?web=1", type: "xlsx", tags: ["mapping"], section: "📁 General Inputs & Guides", tab: "docs" },
@@ -770,9 +777,9 @@ For any questions, please refer to the original documentation or contact the dev
         updateStats();
     }
 
-    var ICONS = { docx: '📝', xlsx: '📊', py: '🐍', ipynb: '📓', mrs: '⚙️', txt: '📃', bat: '💻', pptx: '📽️', link: '🔗' };
-    var BADGE_CLASS = { docx: 'badge-docx', xlsx: 'badge-xlsx', py: 'badge-py', ipynb: 'badge-ipynb', mrs: 'badge-mrs', txt: 'badge-txt', bat: 'badge-bat', pptx: 'badge-pptx', link: 'badge-link' };
-    var BADGE_LABEL = { docx: 'DOCX', xlsx: 'XLSX', py: 'PY', ipynb: 'IPYNB', mrs: 'MRS', txt: 'TXT', bat: 'BAT', pptx: 'PPTX', link: 'LINK' };
+    var ICONS = { docx: '📝', xlsx: '📊', xlsm: '📊', py: '🐍', ipynb: '📓', mrs: '⚙️', txt: '📃', bat: '💻', pptx: '📽️', link: '🔗' };
+    var BADGE_CLASS = { docx: 'badge-docx', xlsx: 'badge-xlsx', xlsm: 'badge-xlsm', py: 'badge-py', ipynb: 'badge-ipynb', mrs: 'badge-mrs', txt: 'badge-txt', bat: 'badge-bat', pptx: 'badge-pptx', link: 'badge-link' };
+    var BADGE_LABEL = { docx: 'DOCX', xlsx: 'XLSX', xlsm: 'XLSM', py: 'PY', ipynb: 'IPYNB', mrs: 'MRS', txt: 'TXT', bat: 'BAT', pptx: 'PPTX', link: 'LINK' };
     var MAX_RECENT = 8;
 
     function buildItemHTML(item, index) {
@@ -971,7 +978,6 @@ For any questions, please refer to the original documentation or contact the dev
         var rawText = template.textContent.trim();
         document.getElementById('readmeTitle').textContent = '📖 ' + title + ' — README';
 
-        // Parse sections and build TOC + anchored content
         var lines = rawText.split('\n');
         var tocItems = [];
         var contentHTML = '';
@@ -1047,7 +1053,7 @@ For any questions, please refer to the original documentation or contact the dev
     function updateStats() {
         document.getElementById('statTotal').textContent = DOCUMENTS.length;
         document.getElementById('statDocx').textContent = DOCUMENTS.filter(function(d) { return d.type === 'docx'; }).length;
-        document.getElementById('statXlsx').textContent = DOCUMENTS.filter(function(d) { return d.type === 'xlsx'; }).length;
+        document.getElementById('statXlsx').textContent = DOCUMENTS.filter(function(d) { return d.type === 'xlsx' || d.type === 'xlsm'; }).length;
         document.getElementById('statPyNb').textContent = DOCUMENTS.filter(function(d) { return d.type === 'py' || d.type === 'ipynb'; }).length;
         document.getElementById('statFavs').textContent = Object.keys(favorites).length;
         var tc = 0; for (var k in clickCounts) tc += clickCounts[k];
